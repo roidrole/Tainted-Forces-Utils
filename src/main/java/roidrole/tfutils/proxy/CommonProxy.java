@@ -1,4 +1,4 @@
-package roidrole.modid.proxy;
+package roidrole.tfutils.proxy;
 
 public class CommonProxy {
 
