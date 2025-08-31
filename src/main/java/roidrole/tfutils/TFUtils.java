@@ -1,15 +1,15 @@
-package roidrole.modid;
+package roidrole.tfutils;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import roidrole.modid.proxy.CommonProxy;
+import roidrole.tfutils.proxy.CommonProxy;
 
 
 @Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Tags.VERSION)
-public class Modid {
+public class TFUtils {
 
     //Proxy
     @SidedProxy(clientSide = Tags.ROOT_PACKAGE+".proxy.ClientProxy", serverSide = Tags.ROOT_PACKAGE+".proxy.ServerProxy")
@@ -17,7 +17,9 @@ public class Modid {
     public static CommonProxy PROXY;
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {PROXY.preInit();}
+    public void preInit(FMLPreInitializationEvent event) {
+        PROXY.preInit();
+    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {PROXY.init();}
