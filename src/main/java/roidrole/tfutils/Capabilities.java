@@ -1,6 +1,10 @@
 package roidrole.tfutils;
 
 import mekanism.common.MekanismFluids;
+import net.dries007.tfc.api.types.Metal;
+import net.dries007.tfc.objects.fluids.FluidsTFC;
+import net.dries007.tfc.objects.te.TECrucible;
+import net.dries007.tfc.util.Alloy;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -9,9 +13,11 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.oredict.OreDictionary;
+import roidrole.tfutils.mixins.tfc.ITECrucibleAccessor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -78,6 +84,44 @@ public class Capabilities{
 				}
 			}
 			return null;
+		}
+	}
+
+	public static class FluidCapabilityCrucible implements IFluidHandler {
+		TECrucible internal;
+		public FluidCapabilityCrucible(TECrucible internal){
+			this.internal = internal;
+		}
+
+		@Override
+		public IFluidTankProperties[] getTankProperties() {
+			return new IFluidTankProperties[0];
+		}
+
+		@Override
+		public int fill(FluidStack resource, boolean doFill) {
+			return 0;
+		}
+
+		@Nullable
+		@Override
+		public FluidStack drain(FluidStack stack, boolean doDrain) {
+			return null;
+		}
+
+		@Nullable
+		@Override
+		public FluidStack drain(int maxDrain, boolean doDrain) {
+			Alloy alloy = internal.getAlloy();
+			Metal metal = alloy.getResult();
+			if(((ITECrucibleAccessor) internal).getTemperature() < metal.getMeltTemp()){return null;}
+			int amount = Math.min(alloy.getAmount(), maxDrain);
+			alloy.removeAlloy(amount, doDrain);
+			if(doDrain){
+				internal.markForSync();
+				((ITECrucibleAccessor) internal).setAlloyResult(alloy.getResult());
+			}
+			return new FluidStack(FluidsTFC.getFluidFromMetal(metal), amount);
 		}
 	}
 }
