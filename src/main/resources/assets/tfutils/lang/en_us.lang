@@ -1,0 +1,38 @@
+tile.techguns.metalpanel.0.name=Red Container
+tile.techguns.metalpanel.1.name=Green Container
+tile.techguns.metalpanel.2.name=Blue Container
+tile.techguns.metalpanel.3.name=Yellow Container
+tile.techguns.metalpanel.4.name=Steel Panel
+tile.techguns.metalpanel.5.name=Silver Steel Panel
+tile.techguns.metalpanel.6.name=Carbon Panel
+tile.techguns.metalpanel.7.name=Dark Scaffold
+
+tile.techguns.nethermetal.0.name=Nether Metal (Plate)
+tile.techguns.nethermetal.1.name=Nether Metal (Grate)
+tile.techguns.nethermetal.2.name=Nether Metal (Small Grate)
+tile.techguns.nethermetal.3.name=Nether Metal (Bloody Grey)
+tile.techguns.nethermetal.4.name=Nether Metal (Grey)
+tile.techguns.nethermetal.5.name=Nether Metal (Grey Tiles)
+tile.techguns.nethermetal.6.name=Nether Metal (Red Pillar)
+tile.techguns.nethermetal.7.name=Nether Metal (Dark Pillar)
+tile.techguns.nethermetal.8.name=Nether Metal (Red Panel)
+tile.techguns.nethermetal.9.name=Nether Metal (Lava Pillar)
+
+
+tile.bewitchment.nethersteel.name=Nethersteel
+tile.bewitchment.nethersteel_fence.name=Nethersteel Fence
+tile.bewitchment.nethersteel_wall.name=Nethersteel Wall
+tile.bewitchment.nethersteel_slab.name=Nethersteel Slab
+tile.bewitchment.nethersteel_stairs.name=Nethersteel Stairs
+
+tooltip.nethersteel.watching_hellish=Watching Hellish
+tooltip.nethersteel.symbol=Symbol
+tooltip.nethersteel.bevel=Belvel
+tooltip.nethersteel.polished=Polished
+tooltip.nethersteel.sentient=Sentient
+tooltip.nethersteel.pentacle=Pentacle
+tooltip.nethersteel.pentagram=Pentagram
+tooltip.nethersteel.skull=Skull
+tooltip.nethersteel.eye=Eye
+tooltip.nethersteel.watching_eye=Watching Eye
+tooltip.nethersteel.hellish=Hellish
