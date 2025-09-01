@@ -6,7 +6,13 @@
   "minVersion": "0.8.5",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "ic2.ItemReactorLithiumCellMixin"
+    "ic2.ItemReactorLithiumCellMixin",
+    "tfc.FilledMoldCapabilityMixin",
+    "tfc.ITECrucibleAccessor",
+    "tfc.ItemBlockMetalLampMixin",
+    "tfc.ItemBloomMixin",
+    "tfc.ItemTypeMixin",
+    "tfc.TECrucibleMixin"
   ],
   "server": [],
   "client": []
