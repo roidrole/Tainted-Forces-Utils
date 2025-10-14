@@ -44,6 +44,8 @@ dependencies {
     runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
     runtimeOnly('curse.maven:had-enough-items-557549:6463525')
     runtimeOnly('curse.maven:nbt-tooltip-274816:2567902')
+    runtimeOnly('curse.maven:hwyla-253449:2568751')
+    runtimeOnly('curse.maven:jade-324717:2735905')
 
     //implementation('curse.maven:thermal-expansion-69163:2926431')
     //implementation('curse.maven:codechicken-lib-1-8-242818:2779848')
