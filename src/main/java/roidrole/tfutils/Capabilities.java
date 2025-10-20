@@ -1,6 +1,7 @@
 package roidrole.tfutils;
 
 import mekanism.common.MekanismFluids;
+import net.dries007.tfc.ConfigTFC;
 import net.dries007.tfc.api.types.Metal;
 import net.dries007.tfc.objects.fluids.FluidsTFC;
 import net.dries007.tfc.objects.te.TECrucible;
@@ -12,10 +13,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.fluids.capability.*;
 import net.minecraftforge.oredict.OreDictionary;
 import roidrole.tfutils.mixins.tfc.ITECrucibleAccessor;
 
@@ -41,7 +39,9 @@ public class Capabilities{
 
 		@Override
 		public IFluidTankProperties[] getTankProperties() {
-			return new IFluidTankProperties[0];
+			return new FluidTankProperties[]{
+				new FluidTankProperties(new FluidStack(output, count), 10000, false, true)
+			};
 		}
 
 		@Override
@@ -95,7 +95,14 @@ public class Capabilities{
 
 		@Override
 		public IFluidTankProperties[] getTankProperties() {
-			return new IFluidTankProperties[0];
+			Alloy alloy = internal.getAlloy();
+			int amount = alloy.getAmount();
+			return new IFluidTankProperties[]{new FluidTankProperties(
+				new FluidStack(FluidsTFC.getFluidFromMetal(alloy.getResult()), amount),
+				ConfigTFC.Devices.CRUCIBLE.tank,
+				false,
+				true
+			)};
 		}
 
 		@Override
@@ -106,18 +113,24 @@ public class Capabilities{
 		@Nullable
 		@Override
 		public FluidStack drain(FluidStack stack, boolean doDrain) {
-			return null;
+			Alloy alloy = internal.getAlloy();
+			if(stack.getFluid() != FluidsTFC.getFluidFromMetal(alloy.getResult())){
+				return null;
+			}
+			return drain(stack.amount, doDrain);
 		}
 
 		@Nullable
 		@Override
 		public FluidStack drain(int maxDrain, boolean doDrain) {
 			Alloy alloy = internal.getAlloy();
+			if(alloy.getAmount() == 0){
+				return null;
+			}
 			Metal metal = alloy.getResult();
-			if(((ITECrucibleAccessor) internal).getTemperature() < metal.getMeltTemp()){return null;}
 			int amount = Math.min(alloy.getAmount(), maxDrain);
-			alloy.removeAlloy(amount, doDrain);
 			if(doDrain){
+				alloy.removeAlloy(amount, false);
 				internal.markForSync();
 				((ITECrucibleAccessor) internal).setAlloyResult(alloy.getResult());
 			}
