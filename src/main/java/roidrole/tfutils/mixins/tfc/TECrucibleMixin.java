@@ -6,6 +6,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import roidrole.tfutils.Capabilities;
 
 import javax.annotation.Nonnull;
@@ -22,5 +24,19 @@ public class TECrucibleMixin extends TileEntity {
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability != CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){return super.getCapability(capability, facing);}
 		return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new Capabilities.FluidCapabilityCrucible(((TECrucible)(Object)this)));
+	}
+
+	//Confirmed to work in prod
+	@ModifyArg(
+		method = "func_73660_a",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/dries007/tfc/util/Alloy;removeAlloy(IZ)I"
+		),
+		index = 0,
+		remap = false
+	)
+	public int increaseFillRate(int removeAmount){
+		return 3;
 	}
 }
