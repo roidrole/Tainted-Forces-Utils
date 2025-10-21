@@ -14,7 +14,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.*;
-import net.minecraftforge.oredict.OreDictionary;
 import roidrole.tfutils.mixins.tfc.ITECrucibleAccessor;
 
 import javax.annotation.Nonnull;
@@ -23,7 +22,6 @@ import javax.annotation.Nullable;
 public class Capabilities{
 	public static class FluidCapabilityRod implements IFluidHandlerItem {
 		static Fluid output = MekanismFluids.Tritium.getFluid();
-		static ItemStack container = OreDictionary.getOres("nuggetZircaloy").get(0);
 		int count;
 
 		public FluidCapabilityRod(int count){
@@ -32,9 +30,7 @@ public class Capabilities{
 		@Nonnull
 		@Override
 		public ItemStack getContainer() {
-			ItemStack out = container.copy();
-			out.setCount(9 - Math.floorDiv(count, 1111));
-			return out;
+			return ItemStack.EMPTY;
 		}
 
 		@Override
