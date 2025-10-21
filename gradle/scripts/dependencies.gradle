@@ -39,6 +39,7 @@ dependencies {
     implementation('com.cleanroommc:configanytime:3.0')
     implementation('curse.maven:terrafirmacraft-302973:3645502')
     implementation('curse.maven:tfc-metallum-339156:3735220')
+    implementation('curse.maven:tfctech-unofficial-340660:3209033')
     runtimeOnly('curse.maven:ctm-267602:2915363')
     runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
     runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
