@@ -12,7 +12,9 @@
     "tfc.ItemBlockMetalLampMixin",
     "tfc.ItemBloomMixin",
     "tfc.ItemTypeMixin",
-    "tfc.TECrucibleMixin"
+    "tfc.TECrucibleMixin",
+    "tfctech.ItemBlowpipeMixin",
+    "tfctech.ItemTypeMixin"
   ],
   "server": [],
   "client": []

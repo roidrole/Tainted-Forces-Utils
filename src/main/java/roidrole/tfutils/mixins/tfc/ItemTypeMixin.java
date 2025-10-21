@@ -23,12 +23,33 @@ public class ItemTypeMixin {
 		),
 		remap = false
 	)
-	private void increaseMetalAmount(Metal.ItemType instance, int value) {
-		if(value == 10){
-			value = 16;
-		} else {
-			value = (int) (value * 1.44);
+	private void modifyMetalAmount(Metal.ItemType instance, int value) {
+		switch(instance.name()){
+			//Originally 1/10 of an ingot, we want 1/9
+			case "NUGGET": {
+				((ItemTypeMixin)(Object)instance).smeltAmount = 16;
+				break;
+			}
+			//Because we want sheets to be 1 ingot instead of 2, we multiply by half.
+			case "SHEET":
+			case "DOUBLE_SHEET":
+			case "TUYERE":
+			case "TRAPDOOR":
+			case "BOOTS":
+			case "UNFINISHED_BOOTS":
+			case "GREAVES":
+			case "UNFINISHED_GREAVES":
+			case "CHESTPLATE":
+			case "UNFINISHED_CHESTPLATE":
+			case "HELMET":
+			case "UNFINISHED_HELMET":
+			case "SHIELD":
+				((ItemTypeMixin)(Object)instance).smeltAmount = (int) (value * 0.72);
+				break;
+			default: {
+				((ItemTypeMixin) (Object) instance).smeltAmount = (int) (value * 1.44);
+				break;
+			}
 		}
-		((ItemTypeMixin)(Object)instance).smeltAmount = value;
 	}
 }
