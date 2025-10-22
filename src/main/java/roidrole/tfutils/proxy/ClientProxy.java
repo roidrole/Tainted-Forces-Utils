@@ -24,7 +24,7 @@ public class ClientProxy extends CommonProxy {
 		addToMap(techGuns, "assets/techguns/textures/blocks/nethermetal_border_alpha.png");
 		addToMap(techGuns, "assets/techguns/textures/blocks/nethermetal_border_alpha-ctm.png");
 		addToMap(techGuns, "assets/techguns/textures/blocks/nethermetal_border_alpha.png.mcmeta");
-		addToMap(techGuns, "assets/techguns/models/blocks/nethermetal_border_lava.json");
+		addToMap(techGuns, "assets/techguns/models/block/nethermetal_border_lava.json");
 		addCTMTexture(techGuns, "nethermetal_border_red");
 		addBlockTexture(techGuns, "nethermetal_grate1");
 		addBlockTexture(techGuns, "nethermetal_grate2");
