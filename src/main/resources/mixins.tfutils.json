@@ -1,21 +1,22 @@
 {
-  "package": "roidrole.tfutils.mixins",
-  "required": true,
-  "refmap": "mixins.patternbanners.refmap.json",
-  "target": "@env(DEFAULT)",
-  "minVersion": "0.8.5",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-    "ic2.ItemReactorLithiumCellMixin",
-    "tfc.FilledMoldCapabilityMixin",
-    "tfc.ITECrucibleAccessor",
-    "tfc.ItemBlockMetalLampMixin",
-    "tfc.ItemBloomMixin",
-    "tfc.ItemTypeMixin",
-    "tfc.TECrucibleMixin",
-    "tfctech.ItemBlowpipeMixin",
-    "tfctech.ItemTypeMixin"
-  ],
-  "server": [],
-  "client": []
+	"package": "roidrole.tfutils.mixins",
+	"required": true,
+	"refmap": "mixins.patternbanners.refmap.json",
+	"target": "@env(DEFAULT)",
+	"minVersion": "0.8.5",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"extrautils.MachineInitMixin",
+		"ic2.ItemReactorLithiumCellMixin",
+		"tfc.FilledMoldCapabilityMixin",
+		"tfc.ITECrucibleAccessor",
+		"tfc.ItemBlockMetalLampMixin",
+		"tfc.ItemBloomMixin",
+		"tfc.ItemTypeMixin",
+		"tfc.TECrucibleMixin",
+		"tfctech.ItemBlowpipeMixin",
+		"tfctech.ItemTypeMixin"
+	],
+	"server": [],
+	"client": []
 }
