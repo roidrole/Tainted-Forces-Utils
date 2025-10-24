@@ -19,8 +19,9 @@ public class CommonProxy {
 
         registerBlock(NetherSteel.BLOCK, NetherSteel.ITEM);
         for (String variant : new String[]{"symbol", "bevel", "polished", "sentient", "pentacle", "pentagram", "skull", "eye", "watching_eye", "hellish", "watching_hellish"}){
-            Block toRegister = new NetherSteel(variant);
-            registerBlock(toRegister, new NetherSteel.NetherSteelItem(variant));
+            NetherSteel toRegister = new NetherSteel(variant);
+            toRegister.pickItem = new NetherSteel.NetherSteelItem(variant);
+            registerBlock(toRegister, toRegister.pickItem);
         }
         registerBlock(NetherSteelFence.BLOCK, NetherSteelFence.ITEM);
         registerBlock(NetherSteelStairs.BLOCK, NetherSteelStairs.ITEM);
