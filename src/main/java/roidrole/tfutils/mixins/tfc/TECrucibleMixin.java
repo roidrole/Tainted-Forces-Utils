@@ -1,29 +1,40 @@
 package roidrole.tfutils.mixins.tfc;
 
 import net.dries007.tfc.objects.te.TECrucible;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import roidrole.tfutils.Capabilities;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 @Mixin(TECrucible.class)
-public class TECrucibleMixin extends TileEntity {
-	@Override
-	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+public class TECrucibleMixin {
+	@Inject(
+		method = "hasCapability",
+		at = @At("HEAD"),
+		cancellable = true,
+		remap = false
+	)
+	public void hasFluidCapability(Capability<?> capability, EnumFacing facing, CallbackInfoReturnable<Boolean> cir) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			cir.setReturnValue(true);
+		}
 	}
 
-	@Override
-	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability != CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){return super.getCapability(capability, facing);}
-		return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new Capabilities.FluidCapabilityCrucible(((TECrucible)(Object)this)));
+	@Inject(
+		method = "getCapability",
+		at = @At("HEAD"),
+		cancellable = true,
+		remap = false
+	)
+	public <T> void getFluidCapability(Capability<T> capability, EnumFacing facing, CallbackInfoReturnable<T> cir) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+			cir.setReturnValue(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new Capabilities.FluidCapabilityCrucible(((TECrucible)(Object)this))));
+		}
 	}
 
 	//Confirmed to work in prod
