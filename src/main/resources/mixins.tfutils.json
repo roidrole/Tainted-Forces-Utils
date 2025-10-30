@@ -9,6 +9,7 @@
 		"ae2.ItemFacadeMixin",
 		"extrautils.MachineInitMixin",
 		"ic2.ItemReactorLithiumCellMixin",
+		"railcraft.RailCraftMixin",
 		"tfc.FilledMoldCapabilityMixin",
 		"tfc.ITECrucibleAccessor",
 		"tfc.ItemBlockMetalLampMixin",
