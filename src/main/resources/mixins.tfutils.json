@@ -10,6 +10,7 @@
 		"extrautils.MachineInitMixin",
 		"ic2.ItemReactorLithiumCellMixin",
 		"railcraft.RailCraftMixin",
+		"tfc.CalendarTFCMixin",
 		"tfc.FilledMoldCapabilityMixin",
 		"tfc.ITECrucibleAccessor",
 		"tfc.ItemBlockMetalLampMixin",
