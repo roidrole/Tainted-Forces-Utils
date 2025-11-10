@@ -40,6 +40,10 @@ dependencies {
     implementation('curse.maven:terrafirmacraft-302973:3645502')
     implementation('curse.maven:tfc-metallum-339156:3735220')
     implementation('curse.maven:tfctech-unofficial-340660:3209033')
+    implementation('curse.maven:magneticraft-224808:3791484')
+    implementation('curse.maven:mysticalmechanics-300742:3006392')
+    implementation('io.github.chaosunity.forgelin:Forgelin-Continuous:2.2.21.0')
+    implementation('curse.maven:modelloader-277663:2744735')
     runtimeOnly('curse.maven:ctm-267602:2915363')
     runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
     runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
@@ -48,6 +52,11 @@ dependencies {
     runtimeOnly('curse.maven:hwyla-253449:2568751')
     runtimeOnly('curse.maven:jade-324717:2735905')
 
+    implementation('curse.maven:persistency-554387:3556105')
+    implementation('curse.maven:thaumic-speedup-409880:3614638')
+    implementation('curse.maven:thaumcraft-223628:2629023')
+    implementation('curse.maven:bubbles-a-baubles-fork-995393:6807550')
+
     implementation('curse.maven:thermal-expansion-69163:2926431')
     implementation('curse.maven:thermal-dynamics-227443:2920505')
     implementation('curse.maven:codechicken-lib-1-8-242818:2779848')
@@ -55,6 +64,9 @@ dependencies {
     implementation('curse.maven:redstone-flux-270789:2920436')
     implementation('curse.maven:thermal-foundation-222880:2926428')
     implementation('curse.maven:cofh-world-271384:2920434')
+
+    implementation('curse.maven:hwyla-253449:2568751')
+    implementation('curse.maven:jade-324717:2735905')
 
     implementation('curse.maven:tinkers-antique-1242239:7077817')
     implementation('curse.maven:mantle-74924:2713386')
