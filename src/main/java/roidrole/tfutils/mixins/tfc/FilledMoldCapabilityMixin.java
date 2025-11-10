@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(targets="net.dries007.tfc.objects.items.ceramics.ItemMold$FilledMoldCapability")
-public class FilledMoldCapabilityMixin {
+public abstract class FilledMoldCapabilityMixin {
 	@Redirect(
 		method = "<init>",
 		at = @At(

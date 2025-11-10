@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemFacade.class)
-public class ItemFacadeMixin extends Item {
+public abstract class ItemFacadeMixin extends Item {
 
 	@Inject(
 		method = "onItemUseFirst",

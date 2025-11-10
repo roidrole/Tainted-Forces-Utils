@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import tfctech.objects.items.metal.ItemTechMetal;
 
 @Mixin(ItemTechMetal.ItemType.class)
-public class ItemTypeMixin {
+public abstract class ItemTypeMixin {
 	@Mutable
 	@Final
 	@Shadow(remap = false)

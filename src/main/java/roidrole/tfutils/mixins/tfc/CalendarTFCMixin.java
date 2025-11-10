@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(CalendarTFC.class)
-public class CalendarTFCMixin {
+public abstract class CalendarTFCMixin {
 	@Redirect(
 		method = "onOverworldTick",
 		at = @At(

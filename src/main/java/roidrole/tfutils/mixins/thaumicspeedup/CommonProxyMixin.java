@@ -9,7 +9,7 @@ import thaumcraft.proxies.CommonProxy;
 
 //Would have mixined into Thaumic Speedup's mixin, but mixinsquared is a pain
 @Mixin(CommonProxy.class)
-public class CommonProxyMixin {
+public abstract class CommonProxyMixin {
 	@Redirect(
 		method = "postInit",
 		at = @At(

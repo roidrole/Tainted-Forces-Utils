@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Metal.ItemType.class)
-public class ItemTypeMixin {
+public abstract class ItemTypeMixin {
 	@Mutable
 	@Final
 	@Shadow(remap = false)

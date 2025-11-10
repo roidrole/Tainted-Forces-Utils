@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(ItemBlockMetalLamp.class)
-public class ItemBlockMetalLampMixin {
+public abstract class ItemBlockMetalLampMixin {
 	/**
 	 * @author roidrole
 	 * @reason increase value of a liquid ingot to 144

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 //Currently broken mixin (doesn't seem to do anything, but the bloom will probably get removed from the pack anyway)
 @Mixin(ItemBloom.class)
-public class ItemBloomMixin {
+public abstract class ItemBloomMixin {
 	@ModifyConstant(
 		method = {"getSmeltAmount", "initCapabilities", "func_150895_a"},
 		constant = @Constant(intValue = 100),

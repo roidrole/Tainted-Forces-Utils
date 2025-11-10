@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import roidrole.tfutils.Capabilities;
 
 @Mixin(ItemReactorLithiumCell.class)
-public class ItemReactorLithiumCellMixin extends Item {
+public abstract class ItemReactorLithiumCellMixin extends Item {
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt){
 		return new Capabilities.FluidCapabilityRodProvider(stack);

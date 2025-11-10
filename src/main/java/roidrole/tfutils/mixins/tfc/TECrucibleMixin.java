@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import roidrole.tfutils.Capabilities;
 
 @Mixin(TECrucible.class)
-public class TECrucibleMixin {
+public abstract class TECrucibleMixin {
 	@Inject(
 		method = "hasCapability",
 		at = @At("HEAD"),

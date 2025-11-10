@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MachineInit.class)
-public class MachineInitMixin {
+public abstract class MachineInitMixin {
 	//Ok, so the XU2 crusher loops through the oredict every time the addition is loaded. This takes quite a lot of time.
 	//During TFCTweaker postInit alone, this listener alone takes 9.3 seconds of the total 9.5
 	//Since the crusher listener is the only registered one, we can safely remove the ability to listen

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(CoverHelper.class)
-public class CoverHelperMixin {
+public abstract class CoverHelperMixin {
 	/**
 	 * @author roidrole
 	 * @reason nuking TD's covers and use AE2's covers

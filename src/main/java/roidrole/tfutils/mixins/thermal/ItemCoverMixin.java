@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Mixin(ItemCover.class)
-public class ItemCoverMixin{
+public abstract class ItemCoverMixin{
 	/**
 	 * @author roidrole
 	 * @reason stop registering covers

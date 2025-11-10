@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @Mixin(TEBlastFurnace.class)
-public class TEBlastFurnaceMixin extends TEInventory {
+public abstract class TEBlastFurnaceMixin extends TEInventory {
 	protected TEBlastFurnaceMixin(int inventorySize) {
 		super(inventorySize);
 	}

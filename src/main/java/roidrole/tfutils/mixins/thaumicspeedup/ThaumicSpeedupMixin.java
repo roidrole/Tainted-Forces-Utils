@@ -9,7 +9,7 @@ import zone.rong.thaumicspeedup.ThaumicSpeedup;
 import java.util.Map;
 
 @Mixin(ThaumicSpeedup.class)
-public class ThaumicSpeedupMixin {
+public abstract class ThaumicSpeedupMixin {
 	@Redirect(
 		method = "construct",
 		at = @At(

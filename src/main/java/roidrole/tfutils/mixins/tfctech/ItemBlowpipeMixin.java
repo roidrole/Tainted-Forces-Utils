@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import tfctech.objects.items.glassworking.ItemBlowpipe;
 
 @Mixin(ItemBlowpipe.class)
-public class ItemBlowpipeMixin {
+public abstract class ItemBlowpipeMixin {
 	/**
 	 * @author roidrole
 	 * @reason standardise ingot to 144 mb and plate to 1 ingot

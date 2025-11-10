@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ProxyClient.class)
-public class ProxyClientMixin {
+public abstract class ProxyClientMixin {
 	@Redirect(
 		method = "preInit",
 		at = @At(

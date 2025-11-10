@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 //Taken from E2EE mixins
 @Mixin(JEIPluginTD.class)
-public class JEIPluginTDMixin {
+public abstract class JEIPluginTDMixin {
 	/**
 	 * @author ZZZank
 	 * @reason Skip cover recipe category initialization
