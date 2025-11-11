@@ -40,10 +40,11 @@ dependencies {
     implementation('curse.maven:terrafirmacraft-302973:3645502')
     implementation('curse.maven:tfc-metallum-339156:3735220')
     implementation('curse.maven:tfctech-unofficial-340660:3209033')
-    implementation('curse.maven:magneticraft-224808:3791484')
+    //implementation('curse.maven:magneticraft-224808:3791484')
     implementation('curse.maven:mysticalmechanics-300742:3006392')
-    implementation('io.github.chaosunity.forgelin:Forgelin-Continuous:2.2.21.0')
-    implementation('curse.maven:modelloader-277663:2744735')
+    //implementation('io.github.chaosunity.forgelin:Forgelin-Continuous:2.2.21.0')
+    //implementation('curse.maven:modelloader-277663:2744735')
+    implementation('curse.maven:botania-ceu-1179448:6900692')
     runtimeOnly('curse.maven:ctm-267602:2915363')
     runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
     runtimeOnly('curse.maven:ftb-library-legacy-forge-237167:2985811')
@@ -78,6 +79,9 @@ dependencies {
     implementation('curse.maven:ae2-extended-life-570458:6302098')
 
     implementation('curse.maven:railcraft-51195:3853491')
+
+    //implementation('curse.maven:fancymenu-367706:4655936')
+    //implementation('curse.maven:konkrete-410295:4514895')
 
     // Example - Dependency descriptor:
     // 'com.google.code.gson:gson:2.8.6' << group: com.google.code.gson, name:gson, version:2.8.6

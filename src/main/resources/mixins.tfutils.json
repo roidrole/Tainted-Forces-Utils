@@ -7,7 +7,9 @@
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"ae2.ItemFacadeMixin",
+		"botania.SubTileGeneratingMixin",
 		"extrautils.MachineInitMixin",
+		"fancymenu.AnimationHandlerMixin",
 		"ic2.ItemReactorLithiumCellMixin",
 		"railcraft.RailCraftMixin",
 		"tfc.CalendarTFCMixin",
@@ -28,5 +30,7 @@
 		"thermal.ProxyClientMixin"
 	],
 	"server": [],
-	"client": []
+	"client": [
+		"fancymenu.ResourcePackAnimationRendererMixin"
+	]
 }
