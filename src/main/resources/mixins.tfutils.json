@@ -9,7 +9,6 @@
 		"ae2.ItemFacadeMixin",
 		"botania.SubTileGeneratingMixin",
 		"extrautils.MachineInitMixin",
-		"fancymenu.AnimationHandlerMixin",
 		"ic2.ItemReactorLithiumCellMixin",
 		"railcraft.RailCraftMixin",
 		"tfc.CalendarTFCMixin",
