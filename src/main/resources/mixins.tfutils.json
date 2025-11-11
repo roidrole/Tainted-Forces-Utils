@@ -29,7 +29,5 @@
 		"thermal.ProxyClientMixin"
 	],
 	"server": [],
-	"client": [
-		"fancymenu.ResourcePackAnimationRendererMixin"
-	]
+	"client": []
 }
