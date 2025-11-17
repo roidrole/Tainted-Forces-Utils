@@ -1,7 +1,10 @@
 package roidrole.tfutils.proxy;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import roidrole.tfutils.blocks.*;
 
@@ -20,7 +23,7 @@ public class CommonProxy {
         registerBlock(NetherSteel.BLOCK, NetherSteel.ITEM);
         for (String variant : new String[]{"symbol", "bevel", "polished", "sentient", "pentacle", "pentagram", "skull", "eye", "watching_eye", "hellish", "watching_hellish"}){
             NetherSteel toRegister = new NetherSteel(variant);
-            toRegister.pickItem = new NetherSteel.NetherSteelItem(variant);
+            toRegister.pickItem = new NetherSteel.NetherSteelItem(toRegister, variant);
             registerBlock(toRegister, toRegister.pickItem);
         }
         registerBlock(NetherSteelFence.BLOCK, NetherSteelFence.ITEM);
@@ -29,6 +32,18 @@ public class CommonProxy {
         ForgeRegistries.BLOCKS.register(NetherSteelSlab.DOUBLE);
         ForgeRegistries.ITEMS.register(NetherSteelSlab.ITEM);
         registerBlock(NetherSteelWall.BLOCK, NetherSteelWall.ITEM);
+		for (int i = 0; i < 16; i++) {
+			String colour = EnumDyeColor.byMetadata(i).getName();
+			ConcreteSlab half = new ConcreteSlab(NetherSteel.BLOCK, colour);
+			ConcreteSlab DOUBLE = new ConcreteSlab(NetherSteel.BLOCK, colour, true);
+			DOUBLE.HALF = half;
+			ItemBlock ITEM = new ItemSlab(half, half, DOUBLE){{
+				setRegistryName(block.getRegistryName());
+				setTranslationKey(block.getTranslationKey());
+			}};
+			registerBlock(half, ITEM);
+			ForgeRegistries.BLOCKS.register(DOUBLE);
+		}
     }
 
     public void init(){

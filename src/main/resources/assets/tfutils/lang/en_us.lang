@@ -18,12 +18,28 @@ tile.techguns.nethermetal.7.name=Nether Metal (Dark Pillar)
 tile.techguns.nethermetal.8.name=Nether Metal (Red Panel)
 tile.techguns.nethermetal.9.name=Nether Metal (Lava Pillar)
 
-
 tile.bewitchment.nethersteel.name=Nethersteel
 tile.bewitchment.nethersteel_fence.name=Nethersteel Fence
 tile.bewitchment.nethersteel_wall.name=Nethersteel Wall
 tile.bewitchment.nethersteel_slab.name=Nethersteel Slab
 tile.bewitchment.nethersteel_stairs.name=Nethersteel Stairs
+
+tile.tfutils.concrete_slab_white.name=White Concrete Slabs
+tile.tfutils.concrete_slab_orange.name=White Concrete Slabs
+tile.tfutils.concrete_slab_magenta.name=White Concrete Slabs
+tile.tfutils.concrete_slab_light_blue.name=White Concrete Slabs
+tile.tfutils.concrete_slab_yellow.name=White Concrete Slabs
+tile.tfutils.concrete_slab_lime.name=White Concrete Slabs
+tile.tfutils.concrete_slab_pink.name=White Concrete Slabs
+tile.tfutils.concrete_slab_gray.name=White Concrete Slabs
+tile.tfutils.concrete_slab_silver.name=White Concrete Slabs
+tile.tfutils.concrete_slab_cyan.name=White Concrete Slabs
+tile.tfutils.concrete_slab_purple.name=White Concrete Slabs
+tile.tfutils.concrete_slab_blue.name=White Concrete Slabs
+tile.tfutils.concrete_slab_brown.name=White Concrete Slabs
+tile.tfutils.concrete_slab_green.name=White Concrete Slabs
+tile.tfutils.concrete_slab_red.name=White Concrete Slabs
+tile.tfutils.concrete_slab_black.name=White Concrete Slabs
 
 tooltip.nethersteel.watching_hellish=Watching Hellish
 tooltip.nethersteel.symbol=Symbol

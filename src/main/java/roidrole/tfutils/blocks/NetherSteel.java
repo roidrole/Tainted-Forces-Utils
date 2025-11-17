@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -18,13 +19,14 @@ import java.util.List;
 
 public class NetherSteel extends Block {
 	public static Block BLOCK = new NetherSteel("");
-	public static ItemBlock ITEM = new NetherSteelItem("");
+	public static ItemBlock ITEM = new NetherSteelItem(BLOCK, "");
 
 	public Item pickItem;
 	public NetherSteel(String variant) {
 		super(Material.IRON);
 		this.setHardness(5.0f);
 		this.setResistance(30.0f);
+		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		if(variant.isEmpty()){
 			setRegistryName("bewitchment", "nethersteel");
 		} else {
@@ -38,11 +40,11 @@ public class NetherSteel extends Block {
 		return new ItemStack(pickItem, 1, 0);
 	}
 
-	public static class NetherSteelItem extends ItemBlock{
+	public static class NetherSteelItem extends ItemBlock {
 		private final String variant;
 
-		public NetherSteelItem(String variant) {
-			super(NetherSteel.BLOCK);
+		public NetherSteelItem(Block block, String variant) {
+			super(block);
 			this.variant = variant;
 			if(variant.isEmpty()){
 				setRegistryName("bewitchment", "nethersteel");
@@ -57,5 +59,7 @@ public class NetherSteel extends Block {
 			if(variant.isEmpty()){return;}
 			tooltip.add(I18n.format("tooltip.nethersteel."+variant));
 		}
+
+
 	}
 }
