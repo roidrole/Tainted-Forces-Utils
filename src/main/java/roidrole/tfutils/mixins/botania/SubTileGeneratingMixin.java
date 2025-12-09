@@ -9,7 +9,7 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 public abstract class SubTileGeneratingMixin {
 	/**
 	 * @author roidrole
-	 * @reason buff hudrogeanas production
+	 * @reason buff hydrogeanas production
 	 */
 	@Overwrite(remap = false)
 	public int getValueForPassiveGeneration() {
