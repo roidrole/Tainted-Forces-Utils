@@ -53,7 +53,6 @@ dependencies {
     runtimeOnly('curse.maven:hwyla-253449:2568751')
     runtimeOnly('curse.maven:jade-324717:2735905')
 
-    implementation('curse.maven:persistency-554387:3556105')
     implementation('curse.maven:thaumic-speedup-409880:3614638')
     implementation('curse.maven:thaumcraft-223628:2629023')
     implementation('curse.maven:bubbles-a-baubles-fork-995393:6807550')

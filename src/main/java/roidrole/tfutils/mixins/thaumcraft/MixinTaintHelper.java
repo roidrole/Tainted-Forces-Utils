@@ -30,7 +30,7 @@ public abstract class MixinTaintHelper {
 	 * @author roidrole
 	 * @reason I'm not finding injection points in this mess
 	 */
-	@Overwrite
+	@Overwrite(remap = false)
 	public static void spreadFibres(World world, BlockPos pos, boolean ignore) {
 		if(!ignore && ModConfig.CONFIG_MISC.wussMode){
 			return;
