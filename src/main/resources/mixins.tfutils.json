@@ -10,6 +10,8 @@
 		"botania.SubTileGeneratingMixin",
 		"extrautils.MachineInitMixin",
 		"ic2.ItemReactorLithiumCellMixin",
+		"railcraft.LootPluginMixin",
+		"railcraft.RailCraftMixin",
 		"tfc.CalendarTFCMixin",
 		"tfc.FilledMoldCapabilityMixin",
 		"tfc.ITECrucibleAccessor",
