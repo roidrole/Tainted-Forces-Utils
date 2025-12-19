@@ -56,6 +56,7 @@ dependencies {
     implementation('curse.maven:thaumic-speedup-409880:3614638')
     implementation('curse.maven:thaumcraft-223628:2629023')
     implementation('curse.maven:bubbles-a-baubles-fork-995393:6807550')
+    implementation('curse.maven:thaumic-jei-285492:5646810')
 
     implementation('curse.maven:thermal-expansion-69163:2926431')
     implementation('curse.maven:thermal-dynamics-227443:2920505')

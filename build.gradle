@@ -224,9 +224,6 @@ jar {
 }
 
 idea {
-    module {
-        inheritOutputDirs = true
-    }
     project {
         settings {
             runConfigurations {
