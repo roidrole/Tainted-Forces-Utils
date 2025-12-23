@@ -40,59 +40,27 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 	public void register(@Nonnull IModRegistry registry){
 		File aspectFile = new File(CACHE_FOLDER, "itemstack_aspects.json");
 
-		//Create aspect cache
+		//Aspect cache
 		if (aspectCacheThread == null && (!aspectFile.exists() || TFUtilsConfig.regenAspectCache)) {
 			aspectCacheThread = new Thread(() -> {
-				ThaumicJEI.LOGGER.info("Starting Aspect ItemStack Thread.");
-				ThaumicJEI.LOGGER.info("Trying to cache {} aspects.", registry.getIngredientRegistry().getAllIngredients(ItemStack.class).size());
-				createAspectsFile(registry.getIngredientRegistry().getAllIngredients(ItemStack.class));
+				createAspectsFile(aspectFile, registry);
+				parseAspectsFile(aspectFile, registry);
 				ThaumicJEI.LOGGER.info("Finished Aspect ItemStack Thread.");
 			}, "ThaumicJEI Aspect Cache");
 			aspectCacheThread.start();
-			return;
+		} else {
+			long time = System.currentTimeMillis();
+			parseAspectsFile(aspectFile, registry);
+			ThaumicJEI.LOGGER.info("Parsed aspect file in {} ms", System.currentTimeMillis() - time);
 		}
 
-		//Read aspect cache
-		long time = System.currentTimeMillis();
-		JsonReader reader;
-		List<AspectFromItemStackCategory.AspectFromItemStackWrapper> wrappers = new ArrayList<>();
-		try {
-			reader = new JsonReader(new FileReader(aspectFile));
-		} catch (FileNotFoundException e) {
-			ThaumicJEI.LOGGER.error("Can't read aspect file!", e);
-			return;
-		}
-
-		try {
-			reader.beginObject();
-			do {
-				AspectList aspect = new AspectList().add(Aspect.getAspect(reader.nextName()), 1);
-				List<ItemStack> stacks = new ArrayList<>();
-				reader.beginArray();
-				while (reader.peek() == JsonToken.STRING) {
-					stacks.add(new ItemStack(JsonToNBT.getTagFromJson(reader.nextString())));
-				}
-				reader.endArray();
-				int start = 0;
-				while (start < stacks.size()) {
-					List<ItemStack> subList = stacks.subList(start, Math.min(start + 36, stacks.size()));
-					wrappers.add(new AspectFromItemStackCategory.AspectFromItemStackWrapper(aspect, subList));
-					start += 36;
-				}
-			} while (reader.peek() != JsonToken.END_OBJECT);
-			reader.close();
-		} catch (NBTException e) {
-			ThaumicJEI.LOGGER.error("Malformed aspect file. Please regenerate", e);
-		} catch (IOException e) {
-			ThaumicJEI.LOGGER.error("Can't read aspect file. Please regenerate", e);
-		}
-
-		registry.addRecipes(wrappers, ThaumcraftJEIPlugin.aspectFromItemStackCategory.getUid());
-		ThaumicJEI.LOGGER.info("Parsed aspect file in {} ms", System.currentTimeMillis() - time);
 	}
 
 
-	public void createAspectsFile(Collection<ItemStack> items) {
+	public void createAspectsFile(File aspectFile, IModRegistry registry) {
+		Collection<ItemStack> items = registry.getIngredientRegistry().getAllIngredients(ItemStack.class);
+		ThaumicJEI.LOGGER.info("Starting Aspect ItemStack Thread.");
+		ThaumicJEI.LOGGER.info("Trying to cache {} aspects.", items.size());
 		//Filter out blacklisted items
 		Set<ResourceLocation> blacklist = new HashSet<>();
 		for (String string : ThaumicConfig.blacklistedFromAspectChecking){
@@ -142,7 +110,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		}
 		ThaumicJEI.LOGGER.info("ItemStack Aspect checking at 100%");
 		try {
-			JsonWriter writer = new JsonWriter(new FileWriter(new File(CACHE_FOLDER, "itemstack_aspects.json")));
+			JsonWriter writer = new JsonWriter(new FileWriter(aspectFile));
 			writer.setIndent("	");
 			//Write the JSON by hand. Less annoying
 			writer.beginObject();
@@ -165,5 +133,43 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		} catch (IOException e) {
 			ThaumicJEI.LOGGER.error("Can't write aspect file!", e);
 		}
+	}
+
+	public void parseAspectsFile(File aspectFile, IModRegistry registry){
+
+		JsonReader reader;
+		List<AspectFromItemStackCategory.AspectFromItemStackWrapper> wrappers = new ArrayList<>();
+		try {
+			reader = new JsonReader(new FileReader(aspectFile));
+		} catch (FileNotFoundException e) {
+			ThaumicJEI.LOGGER.error("Can't read aspect file!", e);
+			return;
+		}
+
+		try {
+			reader.beginObject();
+			do {
+				AspectList aspect = new AspectList().add(Aspect.getAspect(reader.nextName()), 1);
+				List<ItemStack> stacks = new ArrayList<>();
+				reader.beginArray();
+				while (reader.peek() == JsonToken.STRING) {
+					stacks.add(new ItemStack(JsonToNBT.getTagFromJson(reader.nextString())));
+				}
+				reader.endArray();
+				int start = 0;
+				while (start < stacks.size()) {
+					List<ItemStack> subList = stacks.subList(start, Math.min(start + 36, stacks.size()));
+					wrappers.add(new AspectFromItemStackCategory.AspectFromItemStackWrapper(aspect, subList));
+					start += 36;
+				}
+			} while (reader.peek() != JsonToken.END_OBJECT);
+			reader.close();
+		} catch (NBTException e) {
+			ThaumicJEI.LOGGER.error("Malformed aspect file. Please regenerate", e);
+		} catch (IOException e) {
+			ThaumicJEI.LOGGER.error("Can't read aspect file. Please regenerate", e);
+		}
+
+		registry.addRecipes(wrappers, ThaumcraftJEIPlugin.aspectFromItemStackCategory.getUid());
 	}
 }
