@@ -44,6 +44,8 @@ dependencies {
     implementation('curse.maven:mysticalmechanics-300742:3006392')
     //implementation('io.github.chaosunity.forgelin:Forgelin-Continuous:2.2.21.0')
     //implementation('curse.maven:modelloader-277663:2744735')
+    implementation('curse.maven:angry-pixel-the-betweenlands-mod-243363:4479688')
+    implementation('curse.maven:reid-629017:6761278')
     implementation('curse.maven:botania-ceu-1179448:6900692')
     runtimeOnly('curse.maven:ctm-267602:2915363')
     runtimeOnly('curse.maven:ftb-utilities-forge-237102:3157548')
