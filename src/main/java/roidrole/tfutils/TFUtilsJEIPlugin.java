@@ -7,7 +7,6 @@ import com.buuz135.thaumicjei.config.ThaumicConfig;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.unimi.dsi.fastutil.ints.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
@@ -68,7 +67,6 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		}
 		blacklist.add(null);
 		blacklist.add(Items.AIR.getRegistryName());
-		List<ItemStack> ignoredStacks = new ArrayList<>();
 
 		int cachedAmount = 0;
 		long lastTimeChecked = System.currentTimeMillis();

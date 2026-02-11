@@ -1,7 +1,8 @@
 package roidrole.tfutils.utils;
 
-import java.util.*;
+import java.util.Arrays;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 //A partial Int2ObjectMap implementation
@@ -37,6 +38,15 @@ public class ArrayMap<T> {
 		}
 		data[key] = supplier.get();
 		return data[key];
+	}
+
+	public void isPresent(int key, Supplier<T> ifAbsent, Function<T, T> ifPresent){
+		T out = get(key);
+		if(out != null){
+			data[key] = ifPresent.apply(out);
+		} else {
+			data[key] = ifAbsent.get();
+		}
 	}
 
 	public T get(int key) {

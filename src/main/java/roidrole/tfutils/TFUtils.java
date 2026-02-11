@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.Logger;
 import roidrole.tfutils.proxy.CommonProxy;
 
 
@@ -20,6 +21,7 @@ public class TFUtils {
     @SidedProxy(clientSide = Tags.ROOT_PACKAGE+".proxy.ClientProxy", serverSide = Tags.ROOT_PACKAGE+".proxy.ServerProxy")
     //If one proxy isn't used, point it to CommonProxy
     public static CommonProxy PROXY;
+    public static Logger LOGGER;
 
     @Mod.EventHandler
     public void construct(FMLConstructionEvent event){
@@ -28,7 +30,9 @@ public class TFUtils {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        LOGGER = event.getModLog();
         PROXY.preInit();
+        PROXY.registerEventHandlers();
     }
 
     @Mod.EventHandler
