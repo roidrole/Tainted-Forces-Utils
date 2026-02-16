@@ -35,7 +35,7 @@ public abstract class MixinTaintHelper {
 		if(!ignore && ModConfig.CONFIG_MISC.wussMode){
 			return;
 		}
-		float mod = 0.001F + AuraHandler.getFluxSaturation(world, pos) * 2.0F;
+		float mod = AuraHandler.getFluxSaturation(world, pos) * 2.0F;
 		if(!ignore && (world.rand.nextFloat() > ModConfig.CONFIG_WORLD.taintSpreadRate * mod)){
 			return;
 		}
