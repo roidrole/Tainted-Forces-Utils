@@ -83,7 +83,6 @@ public abstract class MixinTaintHelper {
 			return;
 		}
 		//TODO: Make the max hardness dependent on taint evolution
-		//TODO: Make metal taintifiable
 		if (BlockTaintFibre.isHemmedByTaint(world, t) && blockState.getBlockHardness(world, t) < 5.0F) {
 			if (blockState.getBlock() == Blocks.RED_MUSHROOM_BLOCK || blockState.getBlock() == Blocks.BROWN_MUSHROOM_BLOCK || material == Material.GOURD || material == Material.CACTUS || material == Material.CORAL || material == Material.SPONGE || material == Material.WOOD) {
 				world.setBlockState(t, BlocksTC.taintCrust.getDefaultState());
@@ -102,7 +101,21 @@ public abstract class MixinTaintHelper {
 			if (material == Material.ROCK && mod > TFUtilsConfig.rockTaintificationThreashold) {
 				world.setBlockState(t, BlocksTC.taintRock.getDefaultState());
 				world.addBlockEvent(t, BlocksTC.taintRock, 1, 0);
-				AuraHelper.drainFlux(world, t, 0.01F, false);
+				AuraHelper.drainFlux(world, t, 0.02F, false);
+				return;
+			}
+
+			if (material == Material.IRON && mod > TFUtilsConfig.rockTaintificationThreashold && world.getGameRules().getInt("taintEvo") > TFUtilsConfig.metalMinEvo){
+				world.setBlockState(t, BlocksTC.taintRock.getDefaultState());
+				world.addBlockEvent(t, BlocksTC.taintRock, 1, 0);
+				AuraHelper.drainFlux(world, t, 0.02F, false);
+				return;
+			}
+
+			if (material == Material.GLASS && mod > TFUtilsConfig.rockTaintificationThreashold && world.getGameRules().getInt("taintEvo") > TFUtilsConfig.metalMinEvo){
+				world.setBlockState(t, BlocksTC.taintRock.getDefaultState());
+				world.addBlockEvent(t, BlocksTC.taintRock, 1, 0);
+				AuraHelper.drainFlux(world, t, 0.02F, false);
 				return;
 			}
 		}
@@ -112,8 +125,8 @@ public abstract class MixinTaintHelper {
 		 && world.isAirBlock(t.up())
 		 && AuraHelper.getFlux(world, t) >= 5.0F
 		 && (double)world.rand.nextFloat() < (double)(ModConfig.CONFIG_WORLD.taintSpreadRate / 100.0F) * 0.33D
-		 && TaintHelper.isAtTaintSeedEdge(world, t))
-		{
+		 && TaintHelper.isAtTaintSeedEdge(world, t)
+		){
 			entity = new EntityTaintSeed(world);
 			entity.setLocationAndAngles((float)t.getX() + 0.5F, t.up().getY(), (float)t.getZ() + 0.5F, (float)world.rand.nextInt(360), 0.0F);
 			if (entity.getCanSpawnHere()) {
