@@ -28,7 +28,6 @@
 		"tfc.TECrucibleMixin",
 		"tfctech.ItemBlowpipeMixin",
 		"tfctech.ItemTypeMixin",
-		"thaumcraft.MixinAuraThread",
 		"thaumcraft.MixinTaintHelper",
 		"thaumicspeedup.CommonProxyMixin",
 		"thaumicspeedup.ThaumicSpeedupMixin",
