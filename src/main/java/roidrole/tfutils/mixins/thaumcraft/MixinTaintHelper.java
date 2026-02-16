@@ -106,7 +106,7 @@ public abstract class MixinTaintHelper {
 			}
 
 			if (material == Material.IRON && mod > TFUtilsConfig.rockTaintificationThreashold && world.getGameRules().getInt("taintEvo") > TFUtilsConfig.metalMinEvo){
-				world.setBlockState(t, BlocksTC.taintRock.getDefaultState());
+				world.setBlockState(t, BlocksTC.taintCrust.getDefaultState());
 				world.addBlockEvent(t, BlocksTC.taintRock, 1, 0);
 				AuraHelper.drainFlux(world, t, 0.02F, false);
 				return;
