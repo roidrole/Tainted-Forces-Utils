@@ -17,6 +17,7 @@
 		"railcraft.LootPluginMixin",
 		"railcraft.RailCraftMixin",
 		"tfc.CalendarTFCMixin",
+		"tfc.ChunkGenTFCMixin",
 		"tfc.FilledMoldCapabilityMixin",
 		"tfc.IItemSizeMixin",
 		"tfc.ITECrucibleAccessor",
