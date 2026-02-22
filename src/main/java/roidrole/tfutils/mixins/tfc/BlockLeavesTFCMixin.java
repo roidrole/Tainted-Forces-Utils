@@ -16,7 +16,7 @@ public abstract class BlockLeavesTFCMixin extends BlockLeaves {
 	 * @author roidrole
 	 * @reason really, don't do TFC leaf decay
 	 */
-	@Overwrite
+	@Overwrite(remap = false)
 	public void func_180650_b(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		//NO-OP
 	}
@@ -25,7 +25,7 @@ public abstract class BlockLeavesTFCMixin extends BlockLeaves {
 	 * @author roidrole
 	 * @reason Actually, do vanilla leaf decay
 	 */
-	@Overwrite
+	@Overwrite(remap = false)
 	public void beginLeavesDecay(IBlockState state, World world, BlockPos pos){
 		super.beginLeavesDecay(state, world, pos);
 	}

@@ -23,7 +23,8 @@ public abstract class LootPluginMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/storage/loot/LootTableList;func_186375_a(Lnet/minecraft/util/ResourceLocation;)Lnet/minecraft/util/ResourceLocation;"
-		)
+		),
+		remap = false
 	)
 	private static ResourceLocation noRegistering(ResourceLocation resourceLocation){
 		return null;
