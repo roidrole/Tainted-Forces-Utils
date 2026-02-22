@@ -16,6 +16,7 @@
 		"railcraft.ItemTieMixin",
 		"railcraft.LootPluginMixin",
 		"railcraft.RailCraftMixin",
+		"tfc.BlockLeavesTFCMixin",
 		"tfc.CalendarTFCMixin",
 		"tfc.ChunkGenTFCMixin",
 		"tfc.FilledMoldCapabilityMixin",
