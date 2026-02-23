@@ -41,7 +41,7 @@ dependencies {
     implementation('curse.maven:tfc-metallum-339156:3735220')
     implementation('curse.maven:tfctech-unofficial-340660:3209033')
     implementation('curse.maven:metallurgy-4-reforged-300890:5279337')
-    //implementation('curse.maven:magneticraft-224808:3791484')
+    implementation('curse.maven:magneticraft-224808:3791484')
     implementation('curse.maven:mysticalmechanics-300742:3006392')
     //implementation('io.github.chaosunity.forgelin:Forgelin-Continuous:2.2.21.0')
     //implementation('curse.maven:modelloader-277663:2744735')
