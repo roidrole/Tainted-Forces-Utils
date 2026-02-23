@@ -86,7 +86,7 @@ dependencies {
 
     implementation('curse.maven:railcraft-51195:3853491')
 
-    implementation('curse.maven:lockdown-244019:2477270')
+    //implementation('curse.maven:lockdown-244019:2477270')
 
     implementation('curse.maven:yungs-better-mineshafts-forge-389665:3247154')
 
