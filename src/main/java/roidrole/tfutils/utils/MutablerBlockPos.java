@@ -30,4 +30,10 @@ public class MutablerBlockPos extends BlockPos.MutableBlockPos {
 	public void addZ(){
 		this.z++;
 	}
+
+	public void translate(int x, int y, int z){
+		this.x += x;
+		this.y += y;
+		this.z += z;
+	}
 }
