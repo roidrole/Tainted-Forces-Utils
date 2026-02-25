@@ -68,7 +68,7 @@ public abstract class VeinMixin implements IVeinExpansion {
 						final IBlockState stateAt = world.getBlockState(posAt);
 
 						// Do checks specific to the individual block pos that is getting replaced
-						if (random.nextDouble() < this.getChanceToGenerate(posAt) /*&& stateAt.getBlock() instanceof BlockRockVariant*/)
+						if (random.nextDouble() < this.getChanceToGenerate(posAt) && stateAt.getBlock() instanceof BlockRockVariant)
 						{
 							final BlockRockVariant blockAt = (BlockRockVariant) stateAt.getBlock();
 							if (blockAt.getType() == Rock.Type.RAW && this.canSpawnIn(blockAt.getRock()))
