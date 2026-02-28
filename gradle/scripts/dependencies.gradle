@@ -90,6 +90,11 @@ dependencies {
 
     implementation('curse.maven:yungs-better-mineshafts-forge-389665:3247154')
 
+    implementation('curse.maven:tetra-289712:2815271')
+
+    implementation('curse.maven:orelib-307806:2820815')
+    implementation('curse.maven:dynamic-surroundings-238891:3497269')
+
     //implementation('curse.maven:fancymenu-367706:4655936')
     //implementation('curse.maven:konkrete-410295:4514895')
 
