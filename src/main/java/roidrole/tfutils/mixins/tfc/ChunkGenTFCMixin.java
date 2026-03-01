@@ -50,7 +50,9 @@ public abstract class ChunkGenTFCMixin {
 		remap = false
 	)
 	private void generateMineshaft(int chunkX, int chunkZ, CallbackInfoReturnable<Chunk> cir, @Local(name = "chunkPrimerOut") CustomChunkPrimer chunkPrimerOut){
-		this.tfUtils_mineshaftGen.generate(this.world, chunkX, chunkZ, chunkPrimerOut);
+		try {
+			this.tfUtils_mineshaftGen.generate(this.world, chunkX, chunkZ, chunkPrimerOut);
+		} catch (RuntimeException ignored) { }
 	}
 
 	@Inject(
@@ -62,7 +64,9 @@ public abstract class ChunkGenTFCMixin {
 		),
 		remap = false
 	)
-	private void populateMineshaft(int chunkX, int chunkZ, CallbackInfo ci){
-		this.tfUtils_mineshaftGen.generateStructure(this.world, this.rand, new ChunkPos(chunkX, chunkZ));
+	private void populateMineshaft(int chunkX, int chunkZ, CallbackInfo ci) {
+		try {
+			this.tfUtils_mineshaftGen.generateStructure(this.world, this.rand, new ChunkPos(chunkX, chunkZ));
+		} catch (RuntimeException ignored) { }
 	}
 }
