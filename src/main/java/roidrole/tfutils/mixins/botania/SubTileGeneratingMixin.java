@@ -2,7 +2,7 @@ package roidrole.tfutils.mixins.botania;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import roidrole.tfutils.TFUtilsConfig;
+import roidrole.tfutils.config.TFUtilsConfig;
 import vazkii.botania.api.subtile.SubTileGenerating;
 
 @Mixin(SubTileGenerating.class)

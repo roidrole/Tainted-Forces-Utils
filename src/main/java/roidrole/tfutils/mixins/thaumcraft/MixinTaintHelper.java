@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import roidrole.tfutils.TFUtilsConfig;
+import roidrole.tfutils.config.TFUtilsConfig;
 import thaumcraft.api.ThaumcraftMaterials;
 import thaumcraft.api.aura.AuraHelper;
 import thaumcraft.api.blocks.BlocksTC;

@@ -1,8 +1,12 @@
-package roidrole.tfutils;
+package roidrole.tfutils.config;
 
 import net.minecraftforge.common.config.Config;
+import roidrole.tfutils.Tags;
 
-@Config(modid = Tags.MOD_ID)
+@Config(
+	modid = Tags.MOD_ID,
+	name = Tags.MOD_ID + "/general"
+)
 public class TFUtilsConfig {
 
 	@Config.Comment({

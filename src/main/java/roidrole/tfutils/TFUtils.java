@@ -31,6 +31,7 @@ public class TFUtils {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         LOGGER = event.getModLog();
+
         PROXY.preInit();
         PROXY.registerEventHandlers();
     }

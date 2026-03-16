@@ -3,7 +3,7 @@ package roidrole.tfutils.mixins.thaumicspeedup;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import roidrole.tfutils.TFUtilsConfig;
+import roidrole.tfutils.config.TFUtilsConfig;
 import zone.rong.thaumicspeedup.ThaumicSpeedup;
 
 import java.util.Map;

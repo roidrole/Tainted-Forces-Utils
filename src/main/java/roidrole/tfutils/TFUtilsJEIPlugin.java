@@ -10,6 +10,7 @@ import com.google.gson.stream.JsonWriter;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,10 +19,13 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import roidrole.tfutils.config.TFUtilsConfig;
 import roidrole.tfutils.utils.ArrayMap;
+import thaumcraft.api.ThaumcraftMaterials;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.items.ItemsTC;
 
 import javax.annotation.Nonnull;
 import java.io.*;
@@ -53,8 +57,8 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 			ThaumicJEI.LOGGER.info("Parsed aspect file in {} ms", System.currentTimeMillis() - time);
 		}
 
+		registry.addRecipeCatalyst(new ItemStack(ItemsTC.alumentum), "inworldcrafting.explode_item", "inworldcrafting.exploding_blocks");
 	}
-
 
 	public void createAspectsFile(File aspectFile, IModRegistry registry) {
 		Collection<ItemStack> items = registry.getIngredientRegistry().getAllIngredients(ItemStack.class);

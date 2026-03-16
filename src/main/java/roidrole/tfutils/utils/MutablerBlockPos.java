@@ -31,6 +31,16 @@ public class MutablerBlockPos extends BlockPos.MutableBlockPos {
 		this.z++;
 	}
 
+	public void setX(int x){
+		this.x = x;
+	}
+
+	//setY is already in BlockPos and modifies the pos
+
+	public void setZ(int z){
+		this.z = z;
+	}
+
 	public void translate(int x, int y, int z){
 		this.x += x;
 		this.y += y;

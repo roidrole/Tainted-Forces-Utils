@@ -1,5 +1,8 @@
 package roidrole.tfutils.proxy;
 
+import com.bloodnbonesgaming.bnbgamingcore.events.AdvancementAboutToLoadEvent;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -7,7 +10,10 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSlab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import roidrole.tfutils.TFUtils;
+import roidrole.tfutils.Tags;
 import roidrole.tfutils.blocks.*;
+import roidrole.tfutils.config.BuildingGadgetIgnoredNBTKeys;
 import thebetweenlands.common.BLDataFixers;
 import thebetweenlands.common.block.farming.BlockGenericDugSoil;
 import thebetweenlands.common.block.plant.BlockWeedwoodBush;
@@ -44,6 +50,11 @@ import thebetweenlands.common.world.storage.BetweenlandsChunkStorage;
 import thebetweenlands.common.world.storage.OfflinePlayerHandlerImpl;
 import thebetweenlands.common.world.storage.WorldStorageImpl;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class CommonProxy {
 
     public void construct(){
@@ -51,6 +62,7 @@ public class CommonProxy {
     }
 
     public void preInit(){
+		//Item/block registration
         ForgeRegistries.BLOCKS.register(MetalPanel.BLOCK);
         ForgeRegistries.ITEMS.register(MetalPanel.ITEM);
         ForgeRegistries.BLOCKS.register(NetherMetal.BLOCK);
@@ -87,10 +99,30 @@ public class CommonProxy {
     }
 
     public void postInit(){
-        //NO-OP
-    }
+		//Setup BuildingGadgetIgnoredKey
+		File file = new File("config/" + Tags.MOD_ID + "/nbt_keys_to_ignore.json");
+		if(!file.isFile()){
+			try (JsonWriter writer = new JsonWriter(new FileWriter("config/"+ Tags.MOD_ID + "/nbt_keys_to_ignore.json"))){
+				writer.setIndent("\t");
+				BuildingGadgetIgnoredNBTKeys.writeDefaultConfig(writer);
+			} catch (IOException e){
+				TFUtils.LOGGER.error("Can't write default ignored NBT tags for Builder's gadgets TileEntity support", e);
+			}
+		}
+		try(JsonReader reader = new JsonReader(new FileReader("config/"+ Tags.MOD_ID + "/nbt_keys_to_ignore.json"))){
+			BuildingGadgetIgnoredNBTKeys.INSTANCE.readConfig(reader);
+		} catch (Exception e){
+			TFUtils.LOGGER.error(
+				"Malformed json file at config/"+ Tags.MOD_ID + "/nbt_keys_to_ignore.json. " +
+				"See" + Tags.MOD_NAME + "'s wiki for the expected format",
+				e
+			);
+		}
+	}
 
 	public void registerEventHandlers(){
+		MinecraftForge.EVENT_BUS.register(AdvancementAboutToLoadEvent.class);
+
 		//Betweenlands
 		WorldStorageImpl.register();
 

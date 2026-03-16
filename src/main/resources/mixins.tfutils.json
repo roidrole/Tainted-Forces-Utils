@@ -8,6 +8,7 @@
 	"mixins": [
 		"ae2.ItemFacadeMixin",
 		"botania.SubTileGeneratingMixin",
+		"buildinggadgets.GadgetCopyPasteMixin",
 		"extrautils.IBurnListAccessor",
 		"extrautils.MachineInitMixin",
 		"extrautils.XUJEIPluginMixin",
@@ -16,6 +17,7 @@
 		"railcraft.ItemTieMixin",
 		"railcraft.LootPluginMixin",
 		"railcraft.RailCraftMixin",
+		"tfc.BlockCharcoalForgeMixin",
 		"tfc.BlockLeavesTFCMixin",
 		"tfc.CalendarTFCMixin",
 		"tfc.CastingRecipeWrapperMixin",

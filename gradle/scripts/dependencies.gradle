@@ -95,6 +95,12 @@ dependencies {
     implementation('curse.maven:orelib-307806:2820815')
     implementation('curse.maven:dynamic-surroundings-238891:3497269')
 
+    implementation('curse.maven:bnbgaminglib-229587:2698688')
+    implementation('curse.maven:bnbgamingcore-274341:2991671')
+    implementation('curse.maven:triumph-235492:2825547')
+
+    implementation('curse.maven:building-gadgets-298187:3005950')
+
     //implementation('curse.maven:fancymenu-367706:4655936')
     //implementation('curse.maven:konkrete-410295:4514895')
 
