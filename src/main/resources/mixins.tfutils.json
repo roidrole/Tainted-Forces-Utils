@@ -37,6 +37,7 @@
 		"tfc.WorldGenOreVeinsMixin",
 		"tfctech.ItemBlowpipeMixin",
 		"tfctech.ItemTypeMixin",
+		"tfctech.ItemWireMixin",
 		"thaumcraft.MixinTaintHelper",
 		"thaumicjei.CrucibleCategoryMixin",
 		"thaumicspeedup.CommonProxyMixin",
