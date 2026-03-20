@@ -38,6 +38,7 @@
 		"tfctech.ItemBlowpipeMixin",
 		"tfctech.ItemTypeMixin",
 		"thaumcraft.MixinTaintHelper",
+		"thaumicjei.CrucibleCategoryMixin",
 		"thaumicspeedup.CommonProxyMixin",
 		"thaumicspeedup.ThaumicSpeedupMixin",
 		"thebetweenlands.ItemGreatswordMixin",
