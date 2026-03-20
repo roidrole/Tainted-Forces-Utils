@@ -30,6 +30,7 @@
 		"tfc.ItemTypeMixin",
 		"tfc.TEBlastFurnaceMixin",
 		"tfc.TECrucibleMixin",
+		"tfc.TFCJEIPluginMixin",
 		"tfc.UnmoldRecipeMixin",
 		"tfc.UnmoldRecipeWrapperMixin",
 		"tfc.VeinMixin",
