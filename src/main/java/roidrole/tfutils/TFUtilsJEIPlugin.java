@@ -92,13 +92,10 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 			})
 			.forEach(stack -> {
 				AspectList list = AspectHelper.getObjectAspects(stack);
-				list.aspects.forEach((aspect, count) -> {
-					cache
-						.get(aspect)
-						.computeIfAbsent(count, ArrayList::new)
-						.add(writeItemStack(stack, count))
-					;
-				});
+				list.aspects.forEach((aspect, count) -> cache
+					.get(aspect)
+					.computeIfAbsent(count, ArrayList::new)
+					.add(writeItemStack(stack, count)));
 
 				cachedAmount[0]++;
 				if (lastTimeChecked[0] + 5000 < System.currentTimeMillis()) {
