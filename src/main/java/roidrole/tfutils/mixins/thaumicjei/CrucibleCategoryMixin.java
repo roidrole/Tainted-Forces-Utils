@@ -16,7 +16,8 @@ public abstract class CrucibleCategoryMixin {
 		method = "getIngredients",
 		at = @At(
 			value = "INVOKE",
-			target = "Lmezz/jei/api/ingredients/IIngredients;setInputs(Lmezz/jei/api/recipe/IIngredientType;Ljava/util/List;)V"
+			target = "Lmezz/jei/api/ingredients/IIngredients;setInputs(Lmezz/jei/api/recipe/IIngredientType;Ljava/util/List;)V",
+			ordinal = 0
 		),
 		remap = false
 	)
