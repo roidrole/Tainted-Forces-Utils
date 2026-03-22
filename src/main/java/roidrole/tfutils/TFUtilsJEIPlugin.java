@@ -10,18 +10,16 @@ import com.google.gson.stream.JsonWriter;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
-import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
 import roidrole.tfutils.config.TFUtilsConfig;
 import roidrole.tfutils.utils.ArrayMap;
-import thaumcraft.api.ThaumcraftMaterials;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
@@ -30,6 +28,7 @@ import thaumcraft.api.items.ItemsTC;
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @JEIPlugin
 public class TFUtilsJEIPlugin implements IModPlugin {
@@ -52,9 +51,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 			}, "ThaumicJEI Aspect Cache");
 			aspectCacheThread.start();
 		} else {
-			long time = System.currentTimeMillis();
 			parseAspectsFile(aspectFile, registry);
-			ThaumicJEI.LOGGER.info("Parsed aspect file in {} ms", System.currentTimeMillis() - time);
 		}
 
 		registry.addRecipeCatalyst(new ItemStack(ItemsTC.alumentum), "inworldcrafting.explode_item", "inworldcrafting.exploding_blocks");
@@ -72,106 +69,167 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		blacklist.add(null);
 		blacklist.add(Items.AIR.getRegistryName());
 
-		int cachedAmount = 0;
-		long lastTimeChecked = System.currentTimeMillis();
-		Map<Aspect, ArrayMap<List<NBTTagCompound>>> aspectCacheHashMap = new HashMap<>();
-		for (ItemStack stack : items) {
-			ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(stack.getItem());
-			if(blacklist.contains(resourcelocation)){
-				cachedAmount++;
-				continue;
-			}
-
-
-			AspectList list = AspectHelper.getObjectAspects(stack);
-			if (list == null || list.size() == 0){
-				cachedAmount++;
-				continue;
-			}
-
-			NBTTagCompound itemNbt = new NBTTagCompound();
-			itemNbt.setString("id", resourcelocation.toString());
-			if(stack.getItemDamage() != 0){
-				itemNbt.setInteger("Damage", stack.getItemDamage());
-			}
-			if (stack.getTagCompound() != null){
-				itemNbt.setTag("tag", stack.getTagCompound());
-			}
-			for (Aspect aspect : list.getAspects()) {
-				int count = Math.max(list.getAmount(aspect), 1);
-				ArrayMap<List<NBTTagCompound>> aspectList = aspectCacheHashMap.computeIfAbsent(aspect, key -> new ArrayMap<>());
-				List<NBTTagCompound> countList = aspectList.computeIfAbsent(count, ArrayList::new);
-				countList.add(itemNbt);
-			}
-			cachedAmount++;
-			if (lastTimeChecked + 5000 < System.currentTimeMillis()) {
-				lastTimeChecked = System.currentTimeMillis();
-				ThaumicJEI.LOGGER.info("ItemStack Aspect checking at {}%", 100 * cachedAmount / items.size());
-			}
-
+		Map<Aspect, ArrayMap<List<String>>> cache = new ConcurrentHashMap<>();
+		for(Aspect aspect : Aspect.aspects.values()){
+			cache.put(aspect, new ArrayMap<>());
 		}
+
+		//Because concurrency
+		final int[] cachedAmount = {0};
+		final long[] lastTimeChecked = {System.currentTimeMillis()};
+
+		items
+			.parallelStream()
+			.filter(stack -> !blacklist.contains(Item.REGISTRY.getNameForObject(stack.getItem())))
+			//Since Thaumcraft caches ItemStack aspects itself, filtering for empty AspectList is fine
+			.filter(stack -> {
+				AspectList list = AspectHelper.getObjectAspects(stack);
+				if (list == null || list.size() == 0){
+					cachedAmount[0]++;
+					return false;
+				}
+				return true;
+			})
+			.forEach(stack -> {
+				AspectList list = AspectHelper.getObjectAspects(stack);
+				list.aspects.forEach((aspect, count) -> {
+					cache
+						.get(aspect)
+						.computeIfAbsent(count, ArrayList::new)
+						.add(writeItemStack(stack, count))
+					;
+				});
+
+				cachedAmount[0]++;
+				if (lastTimeChecked[0] + 5000 < System.currentTimeMillis()) {
+					lastTimeChecked[0] = System.currentTimeMillis();
+					ThaumicJEI.LOGGER.info("ItemStack Aspect checking at {}%", 100 * cachedAmount[0] / items.size());
+				}
+			})
+		;
+
+
 		ThaumicJEI.LOGGER.info("ItemStack Aspect checking at 100%");
-		try {
-			JsonWriter writer = new JsonWriter(new FileWriter(aspectFile));
-			writer.setIndent("	");
+		try (JsonWriter writer = new JsonWriter(new FileWriter(aspectFile))){
+			writer.setIndent("\t");
 			//Write the JSON by hand. Less annoying
 			writer.beginObject();
-			for(Map.Entry<Aspect, ArrayMap<List<NBTTagCompound>>> entry : aspectCacheHashMap.entrySet()){
-				writer.name(entry.getKey().getTag());
-				writer.beginArray();
-				entry.getValue().forEach((count, itemList) -> {
-					for (NBTTagCompound nbtTagCompound : itemList) {
-						nbtTagCompound.setInteger("Count", count);
-						try {
-							writer.value(nbtTagCompound.toString());
-						} catch (IOException ignored) {}
-					}
-				});
-				writer.endArray();
-			}
+			cache
+				.entrySet()
+				.stream()
+				.sorted(Map.Entry.comparingByKey(Comparator.comparing(Aspect::getTag)))
+				.forEach(entry -> {
+				try {
+					writer.name(entry.getKey().getTag());
+					writer.beginArray();
+					entry.getValue().forEach(
+						(count, list) -> list.forEach(stack -> {
+							try {
+								writer.value(stack);
+							} catch (IOException ignored) { }
+						})
+					);
+					writer.endArray();
+				} catch (IOException ignored) { }
+			});
 			writer.endObject();
-			writer.flush();
-			writer.close();
 		} catch (IOException e) {
 			ThaumicJEI.LOGGER.error("Can't write aspect file!", e);
 		}
 	}
 
 	public void parseAspectsFile(File aspectFile, IModRegistry registry){
-
-		JsonReader reader;
+		long time = System.currentTimeMillis();
 		List<AspectFromItemStackCategory.AspectFromItemStackWrapper> wrappers = new ArrayList<>();
-		try {
-			reader = new JsonReader(new FileReader(aspectFile));
+		Map<Aspect, List<ItemStack>> cache = new HashMap<>();
+
+		try (JsonReader reader = new JsonReader(new FileReader(aspectFile))){
+			reader.beginObject();
+
+			do {
+				Aspect aspect = Aspect.getAspect(reader.nextName());
+				List<ItemStack> list = new ArrayList<>();
+				cache.put(aspect, list);
+				reader.beginArray();
+				while(reader.peek() != JsonToken.END_ARRAY){
+					list.add(readItemStack(reader.nextString()));
+				}
+				reader.endArray();
+
+			} while (reader.peek() != JsonToken.END_OBJECT);
+			reader.endObject();
+
+
+			cache.forEach((aspect, stacks) -> {
+				AspectList aspectList = new AspectList().add(aspect, 1);
+				int start = 0;
+				while (start < stacks.size() - 36) {
+					List<ItemStack> subList = stacks.subList(start, Math.min(start + 36, stacks.size()));
+					wrappers.add(new AspectFromItemStackCategory.AspectFromItemStackWrapper(aspectList, subList));
+					start += 36;
+				}
+			});
 		} catch (FileNotFoundException e) {
 			ThaumicJEI.LOGGER.error("Can't read aspect file!", e);
 			return;
-		}
-
-		try {
-			reader.beginObject();
-			do {
-				AspectList aspect = new AspectList().add(Aspect.getAspect(reader.nextName()), 1);
-				List<ItemStack> stacks = new ArrayList<>();
-				reader.beginArray();
-				while (reader.peek() == JsonToken.STRING) {
-					stacks.add(new ItemStack(JsonToNBT.getTagFromJson(reader.nextString())));
-				}
-				reader.endArray();
-				int start = 0;
-				while (start < stacks.size()) {
-					List<ItemStack> subList = stacks.subList(start, Math.min(start + 36, stacks.size()));
-					wrappers.add(new AspectFromItemStackCategory.AspectFromItemStackWrapper(aspect, subList));
-					start += 36;
-				}
-			} while (reader.peek() != JsonToken.END_OBJECT);
-			reader.close();
 		} catch (NBTException e) {
 			ThaumicJEI.LOGGER.error("Malformed aspect file. Please regenerate", e);
 		} catch (IOException e) {
 			ThaumicJEI.LOGGER.error("Can't read aspect file. Please regenerate", e);
 		}
+		ThaumicJEI.LOGGER.info("Parsed aspect file in {} ms", System.currentTimeMillis() - time);
 
 		registry.addRecipes(wrappers, ThaumcraftJEIPlugin.aspectFromItemStackCategory.getUid());
+	}
+
+	public static String writeItemStack(ItemStack stack, int count){
+		StringBuilder itemNbt = new StringBuilder("{");
+		itemNbt.append("id:\"");
+		itemNbt.append(Item.REGISTRY.getNameForObject(stack.getItem()));
+		itemNbt.append("\"");
+		if(stack.getItemDamage() != 0){
+			itemNbt.append(",Damage:");
+			itemNbt.append(stack.getItemDamage());
+		}
+		if (stack.getTagCompound() != null && !stack.getTagCompound().isEmpty()){
+			itemNbt.append(",tag:");
+			itemNbt.append(NBTTagString.quoteAndEscape(stack.getTagCompound().toString()));
+		}
+		if (count > 1){
+			itemNbt.append(",Count:");
+			itemNbt.append(count);
+		}
+		itemNbt.append("}");
+		return itemNbt.toString();
+	}
+
+	public static ItemStack readItemStack(String string) throws IOException, NBTException {
+		JsonReader itemReader = new JsonReader(new StringReader(string));
+		itemReader.setLenient(true);
+		itemReader.beginObject();
+		//We know it to be "id"
+		itemReader.nextName();
+		ItemStack stack = new ItemStack(Item.getByNameOrId(itemReader.nextString()));
+		while(itemReader.peek() != JsonToken.END_OBJECT){
+			switch (itemReader.nextName()){
+				case "Damage":{
+					stack.setItemDamage(itemReader.nextInt());
+					break;
+				}
+				case "tag":{
+					String tag = itemReader.nextString();
+					if(tag.length() <= 2){
+						break;
+					}
+					stack.setTagCompound(JsonToNBT.getTagFromJson(tag));
+					break;
+				}
+				case "Count":{
+					stack.setCount(itemReader.nextInt());
+					break;
+				}
+			}
+		}
+		return stack;
 	}
 }
