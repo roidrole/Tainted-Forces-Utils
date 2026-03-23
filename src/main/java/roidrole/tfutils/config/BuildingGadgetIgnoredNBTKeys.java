@@ -5,7 +5,9 @@ import com.google.gson.stream.JsonWriter;
 import net.minecraft.nbt.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 import static com.google.gson.stream.JsonToken.*;

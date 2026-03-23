@@ -49,9 +49,10 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ItemsTC.alumentum), "inworldcrafting.explode_item", "inworldcrafting.exploding_blocks");
 	}
 
-	public void createAspectsFile(File aspectFile, IModRegistry registry) {
+	public void createAspectsFile(File aspectFile, IModRegistry registry){
+		long time = System.currentTimeMillis();
 		Collection<ItemStack> items = registry.getIngredientRegistry().getAllIngredients(ItemStack.class);
-		ThaumicJEI.LOGGER.info("Starting Aspect ItemStack Thread.");
+		ThaumicJEI.LOGGER.info("Caching ItemStack Aspects.");
 		ThaumicJEI.LOGGER.info("Trying to cache {} aspects.", items.size());
 		//Filter out blacklisted items
 		Set<ResourceLocation> blacklist = new HashSet<>();
@@ -97,7 +98,6 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 			})
 		;
 
-
 		ThaumicJEI.LOGGER.info("ItemStack Aspect checking at 100%");
 		try (JsonWriter writer = new JsonWriter(new FileWriter(aspectFile))){
 			writer.setIndent("\t");
@@ -125,6 +125,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		} catch (IOException e) {
 			ThaumicJEI.LOGGER.error("Can't write aspect file!", e);
 		}
+		ThaumicJEI.LOGGER.info("Wrote aspect file in {} ms", System.currentTimeMillis() - time);
 	}
 
 	public void parseAspectsFile(File aspectFile, IModRegistry registry){
