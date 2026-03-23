@@ -36,23 +36,15 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 	static {
 		CACHE_FOLDER.mkdirs();
 	}
-	public static Thread aspectCacheThread;
 
 	@Override
 	public void register(@Nonnull IModRegistry registry){
 		File aspectFile = new File(CACHE_FOLDER, "itemstack_aspects.json");
 
-		//Aspect cache
-		if (aspectCacheThread == null && (!aspectFile.exists() || TFUtilsConfig.regenAspectCache)) {
-			aspectCacheThread = new Thread(() -> {
-				createAspectsFile(aspectFile, registry);
-				parseAspectsFile(aspectFile, registry);
-				ThaumicJEI.LOGGER.info("Finished Aspect ItemStack Thread.");
-			}, "ThaumicJEI Aspect Cache");
-			aspectCacheThread.start();
-		} else {
-			parseAspectsFile(aspectFile, registry);
+		if (!aspectFile.exists() || TFUtilsConfig.regenAspectCache) {
+			createAspectsFile(aspectFile, registry);
 		}
+		parseAspectsFile(aspectFile, registry);
 
 		registry.addRecipeCatalyst(new ItemStack(ItemsTC.alumentum), "inworldcrafting.explode_item", "inworldcrafting.exploding_blocks");
 	}
@@ -161,10 +153,12 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 				AspectList aspectList = new AspectList().add(aspect, 1);
 				int start = 0;
 				while (start < stacks.size() - 36) {
-					List<ItemStack> subList = stacks.subList(start, Math.min(start + 36, stacks.size()));
+					List<ItemStack> subList = stacks.subList(start, start + 36);
 					wrappers.add(new AspectFromItemStackCategory.AspectFromItemStackWrapper(aspectList, subList));
 					start += 36;
 				}
+				List<ItemStack> subList = stacks.subList(start, stacks.size());
+				wrappers.add(new AspectFromItemStackCategory.AspectFromItemStackWrapper(aspectList, subList));
 			});
 		} catch (FileNotFoundException e) {
 			ThaumicJEI.LOGGER.error("Can't read aspect file!", e);
@@ -179,53 +173,36 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		registry.addRecipes(wrappers, ThaumcraftJEIPlugin.aspectFromItemStackCategory.getUid());
 	}
 
+	//Writes ItemStack to format: [resourceLocation, count, damage, tag]
 	public static String writeItemStack(ItemStack stack, int count){
-		StringBuilder itemNbt = new StringBuilder("{");
-		itemNbt.append("id:\"");
-		itemNbt.append(Item.REGISTRY.getNameForObject(stack.getItem()));
+		StringBuilder itemNbt = new StringBuilder("[");
 		itemNbt.append("\"");
-		if(stack.getItemDamage() != 0){
-			itemNbt.append(",Damage:");
+		itemNbt.append(Item.REGISTRY.getNameForObject(stack.getItem()));
+		itemNbt.append("\",");
+		itemNbt.append(count);
+		if (stack.getTagCompound() != null && !stack.getTagCompound().isEmpty()){
+			itemNbt.append(",");
+			itemNbt.append(stack.getItemDamage());
+			itemNbt.append(",");
+			itemNbt.append(NBTTagString.quoteAndEscape(stack.getTagCompound().toString()));
+		} else if(stack.getItemDamage() != 0){
+			itemNbt.append(",");
 			itemNbt.append(stack.getItemDamage());
 		}
-		if (stack.getTagCompound() != null && !stack.getTagCompound().isEmpty()){
-			itemNbt.append(",tag:");
-			itemNbt.append(NBTTagString.quoteAndEscape(stack.getTagCompound().toString()));
-		}
-		if (count > 1){
-			itemNbt.append(",Count:");
-			itemNbt.append(count);
-		}
-		itemNbt.append("}");
+		itemNbt.append("]");
 		return itemNbt.toString();
 	}
 
 	public static ItemStack readItemStack(String string) throws IOException, NBTException {
-		JsonReader itemReader = new JsonReader(new StringReader(string));
-		itemReader.setLenient(true);
-		itemReader.beginObject();
-		//We know it to be "id"
-		itemReader.nextName();
-		ItemStack stack = new ItemStack(Item.getByNameOrId(itemReader.nextString()));
-		while(itemReader.peek() != JsonToken.END_OBJECT){
-			switch (itemReader.nextName()){
-				case "Damage":{
-					stack.setItemDamage(itemReader.nextInt());
-					break;
-				}
-				case "tag":{
-					String tag = itemReader.nextString();
-					if(tag.length() <= 2){
-						break;
-					}
-					stack.setTagCompound(JsonToNBT.getTagFromJson(tag));
-					break;
-				}
-				case "Count":{
-					stack.setCount(itemReader.nextInt());
-					break;
-				}
-			}
+		JsonReader reader = new JsonReader(new StringReader(string));
+		reader.setLenient(true);
+		reader.beginArray();
+		ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(reader.nextString())), reader.nextInt());
+		if(reader.peek() == JsonToken.NUMBER){
+			stack.setItemDamage(reader.nextInt());
+		}
+		if(reader.peek() == JsonToken.STRING){
+			stack.setTagCompound(JsonToNBT.getTagFromJson(reader.nextString()));
 		}
 		return stack;
 	}
