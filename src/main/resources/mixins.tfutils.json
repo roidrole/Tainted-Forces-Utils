@@ -7,6 +7,8 @@
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"ae2.ItemFacadeMixin",
+		"botania.SpecialFloatingFlowerRecipeMixin",
+		"botania.SpecialFloatingFlowerWrapperMixin",
 		"botania.SubTileGeneratingMixin",
 		"buildinggadgets.GadgetCopyPasteMixin",
 		"extrautils.IBurnListAccessor",
