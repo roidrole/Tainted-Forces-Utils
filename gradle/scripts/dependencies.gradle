@@ -58,6 +58,7 @@ dependencies {
 
     implementation('curse.maven:immersive-cables-283992:2595013')
     implementation('curse.maven:immersive-engineering-231951:2974106')
+    implementation('curse.maven:immersive-intelligence-344344:4979247')
 
     implementation('curse.maven:thaumic-speedup-409880:3614638')
     implementation('curse.maven:thaumcraft-223628:2629023')

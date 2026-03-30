@@ -25,7 +25,7 @@ import thaumcraft.common.lib.utils.Utils;
 import thaumcraft.common.world.aura.AuraHandler;
 
 @Mixin(TaintHelper.class)
-public abstract class MixinTaintHelper {
+public abstract class TaintHelperMixin {
 	/**
 	 * @author roidrole
 	 * @reason I'm not finding injection points in this mess
