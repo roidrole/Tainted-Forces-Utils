@@ -181,14 +181,13 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		itemNbt.append(Item.REGISTRY.getNameForObject(stack.getItem()));
 		itemNbt.append("\",");
 		itemNbt.append(count);
-		if (stack.getTagCompound() != null && !stack.getTagCompound().isEmpty()){
+		if(stack.getItemDamage() != 0){
 			itemNbt.append(",");
 			itemNbt.append(stack.getItemDamage());
+		}
+		if (stack.getTagCompound() != null){
 			itemNbt.append(",");
 			itemNbt.append(NBTTagString.quoteAndEscape(stack.getTagCompound().toString()));
-		} else if(stack.getItemDamage() != 0){
-			itemNbt.append(",");
-			itemNbt.append(stack.getItemDamage());
 		}
 		itemNbt.append("]");
 		return itemNbt.toString();
