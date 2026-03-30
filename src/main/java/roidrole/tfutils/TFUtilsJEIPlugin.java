@@ -114,7 +114,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 					entry.getValue().forEach(
 						(count, list) -> list.forEach(stack -> {
 							try {
-								writer.value(stack);
+								writer.jsonValue(stack);
 							} catch (IOException ignored) { }
 						})
 					);
@@ -142,7 +142,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 				cache.put(aspect, list);
 				reader.beginArray();
 				while(reader.peek() != JsonToken.END_ARRAY){
-					list.add(readItemStack(reader.nextString()));
+					list.add(readItemStack(reader));
 				}
 				reader.endArray();
 
@@ -194,8 +194,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		return itemNbt.toString();
 	}
 
-	public static ItemStack readItemStack(String string) throws IOException, NBTException {
-		JsonReader reader = new JsonReader(new StringReader(string));
+	public static ItemStack readItemStack(JsonReader reader) throws IOException, NBTException {
 		reader.setLenient(true);
 		reader.beginArray();
 		ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(reader.nextString())), reader.nextInt());
@@ -205,6 +204,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		if(reader.peek() == JsonToken.STRING){
 			stack.setTagCompound(JsonToNBT.getTagFromJson(reader.nextString()));
 		}
+		reader.endArray();
 		return stack;
 	}
 }
