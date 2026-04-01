@@ -140,7 +140,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 	public void parseAspectsFile(File aspectFile, IModRegistry registry){
 		long time = System.currentTimeMillis();
 		List<AspectFromItemStackCategory.AspectFromItemStackWrapper> wrappers = new ArrayList<>();
-		Map<Aspect, List<ItemStack>> cache = new HashMap<>();
+		Map<Aspect, List<ItemStack>> cache = new LinkedHashMap<>(Aspect.aspects.size());
 
 		try (JsonReader reader = new JsonReader(new FileReader(aspectFile))){
 			reader.beginObject();
