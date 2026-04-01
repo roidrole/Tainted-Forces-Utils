@@ -1,6 +1,5 @@
 package roidrole.tfutils;
 
-import com.buuz135.thaumicjei.ThaumcraftJEIPlugin;
 import com.buuz135.thaumicjei.ThaumicJEI;
 import com.buuz135.thaumicjei.category.AspectFromItemStackCategory;
 import com.buuz135.thaumicjei.config.ThaumicConfig;
@@ -23,12 +22,16 @@ import roidrole.tfutils.utils.ArrayMap;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.items.ItemsTC;
 
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.buuz135.thaumicjei.ThaumcraftJEIPlugin.aspectCompoundCategory;
+import static com.buuz135.thaumicjei.ThaumcraftJEIPlugin.aspectFromItemStackCategory;
 
 @JEIPlugin
 public class TFUtilsJEIPlugin implements IModPlugin {
@@ -47,6 +50,12 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		parseAspectsFile(aspectFile, registry);
 
 		registry.addRecipeCatalyst(new ItemStack(ItemsTC.alumentum), "inworldcrafting.explode_item", "inworldcrafting.exploding_blocks");
+
+		registry.addRecipeCatalyst(new ItemStack(BlocksTC.smelterBasic), aspectFromItemStackCategory.getUid());
+		registry.addRecipeCatalyst(new ItemStack(BlocksTC.smelterThaumium), aspectFromItemStackCategory.getUid());
+		registry.addRecipeCatalyst(new ItemStack(BlocksTC.smelterVoid), aspectFromItemStackCategory.getUid());
+		registry.addRecipeCatalyst(new ItemStack(BlocksTC.centrifuge), aspectCompoundCategory.getUid());
+
 	}
 
 	public void createAspectsFile(File aspectFile, IModRegistry registry){
@@ -171,7 +180,7 @@ public class TFUtilsJEIPlugin implements IModPlugin {
 		}
 		ThaumicJEI.LOGGER.info("Parsed aspect file in {} ms", System.currentTimeMillis() - time);
 
-		registry.addRecipes(wrappers, ThaumcraftJEIPlugin.aspectFromItemStackCategory.getUid());
+		registry.addRecipes(wrappers, aspectFromItemStackCategory.getUid());
 	}
 
 	//Writes ItemStack to format: [resourceLocation, count, damage, tag]
