@@ -16,6 +16,7 @@
 		"extrautils.XUJEIPluginMixin",
 		"ic2.ItemReactorLithiumCellMixin",
 		"immersivecables.RecipeRegistryMixin",
+		"immersiveengineering.SqueezerRecipeCategoryMixin",
 		"mystgears.TileEntityMechanicalCrafterMixin",
 		"railcraft.ItemTieMixin",
 		"railcraft.LootPluginMixin",
