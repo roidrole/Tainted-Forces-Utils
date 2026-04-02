@@ -3,6 +3,7 @@ package roidrole.tfutils.hwyla;
 import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import mcp.mobius.waila.api.WailaPlugin;
+import net.minecraft.tileentity.TileEntity;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.items.IGogglesDisplayExtended;
 import thaumcraft.common.blocks.devices.BlockVisBattery;
@@ -11,14 +12,17 @@ import thaumcraft.common.blocks.devices.BlockVisBattery;
 public class TFUtilsWailaPlugin implements IWailaPlugin {
 	@Override
 	public void register(IWailaRegistrar registrar) {
-		registrar.registerBodyProvider(EssentiaTransportProvider.INSTANCE, IEssentiaTransport.class);
-		registrar.registerNBTProvider(EssentiaTransportProvider.INSTANCE, IEssentiaTransport.class);
+		registrar.registerBodyProvider(ProviderMechanicalPower.INSTANCE, TileEntity.class);
+		registrar.registerNBTProvider(ProviderMechanicalPower.INSTANCE, TileEntity.class);
 
-		registrar.registerBodyProvider(BlockVisBatteryProvider.INSTANCE, BlockVisBattery.class);
+		registrar.registerBodyProvider(ProviderEssentiaTransport.INSTANCE, IEssentiaTransport.class);
+		registrar.registerNBTProvider(ProviderEssentiaTransport.INSTANCE, IEssentiaTransport.class);
 
-		registrar.registerBodyProvider(GogglesDisplayProvider.INSTANCE, IGogglesDisplayExtended.class);
+		registrar.registerBodyProvider(ProviderBlockVisBattery.INSTANCE, BlockVisBattery.class);
 
-		registrar.registerTooltipRenderer("thaumicwaila.aspect", new AspectRender());
+		registrar.registerBodyProvider(ProviderGogglesDisplay.INSTANCE, IGogglesDisplayExtended.class);
+
+		registrar.registerTooltipRenderer("thaumicwaila.aspect", new RendererAspect());
 	}
 
 }

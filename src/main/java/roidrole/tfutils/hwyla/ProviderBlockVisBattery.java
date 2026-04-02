@@ -12,8 +12,8 @@ import thaumcraft.common.lib.utils.EntityUtils;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class BlockVisBatteryProvider implements IWailaDataProvider {
-	public static BlockVisBatteryProvider INSTANCE = new BlockVisBatteryProvider();
+public class ProviderBlockVisBattery implements IWailaDataProvider {
+	public static ProviderBlockVisBattery INSTANCE = new ProviderBlockVisBattery();
 
 	@Nonnull
 	@Override

@@ -10,7 +10,7 @@ import thaumcraft.api.aspects.Aspect;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-public class AspectRender implements IWailaTooltipRenderer {
+public class RendererAspect implements IWailaTooltipRenderer {
 	@Nonnull
 	@Override
 	public Dimension getSize(String[] args, IWailaCommonAccessor accessor) {

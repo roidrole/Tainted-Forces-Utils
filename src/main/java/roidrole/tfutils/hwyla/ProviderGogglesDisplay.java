@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class GogglesDisplayProvider implements IWailaDataProvider {
-	public static GogglesDisplayProvider INSTANCE = new GogglesDisplayProvider();
+public class ProviderGogglesDisplay implements IWailaDataProvider {
+	public static ProviderGogglesDisplay INSTANCE = new ProviderGogglesDisplay();
 	@Nonnull
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack, List<String> tooltip, IWailaDataAccessor accessor, IWailaConfigHandler config) {

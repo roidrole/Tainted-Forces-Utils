@@ -17,8 +17,8 @@ import thaumcraft.common.lib.utils.EntityUtils;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class EssentiaTransportProvider implements IWailaDataProvider {
-	public static EssentiaTransportProvider INSTANCE = new EssentiaTransportProvider();
+public class ProviderEssentiaTransport implements IWailaDataProvider {
+	public static ProviderEssentiaTransport INSTANCE = new ProviderEssentiaTransport();
 
 	@Nonnull
 	@Override
