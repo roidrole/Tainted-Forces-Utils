@@ -46,7 +46,8 @@ public abstract class TilePatternCrafterMixin {
 			value = "INVOKE",
 			//CraftingManager.getRemainingItems
 			target = "Lnet/minecraft/item/crafting/CraftingManager;func_180303_b(Lnet/minecraft/inventory/InventoryCrafting;Lnet/minecraft/world/World;)Lnet/minecraft/util/NonNullList;"
-		)
+		),
+		remap = false
 	)
 	private NonNullList<ItemStack> tfutils_useCache(InventoryCrafting inventoryCrafting, World world){
 		return tfutils_lastRecipe.getRemainingItems(inventoryCrafting);
