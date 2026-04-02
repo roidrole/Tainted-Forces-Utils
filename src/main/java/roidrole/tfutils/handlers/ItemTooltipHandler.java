@@ -33,8 +33,8 @@ import thebetweenlands.common.recipe.purifier.PurifierRecipe;
 import thebetweenlands.common.registries.CapabilityRegistry;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import static thebetweenlands.common.capability.circlegem.CircleGemHelper.ITEM_GEM_NBT_TAG;
 
@@ -146,7 +146,7 @@ public class ItemTooltipHandler {
 		}
 
 		//Steeping pot, Silk Bundle, hard-coded
-		Set<String> tooltip = ClientProxy.betweenlandsItemStackTooltips.get(new ImmutablePair<>(stack.getItem(), stack.getItemDamage()));
+		Collection<String> tooltip = ClientProxy.betweenlandsItemStackTooltips.get(new ImmutablePair<>(stack.getItem(), stack.getItemDamage()));
 		if(tooltip != null){
 			usedInMachines.addAll(tooltip);
 		}

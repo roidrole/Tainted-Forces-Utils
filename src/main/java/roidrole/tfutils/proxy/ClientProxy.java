@@ -40,15 +40,12 @@ import thebetweenlands.common.world.event.EventWinter;
 import thebetweenlands.util.GLUProjection;
 import thebetweenlands.util.RenderUtils;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-	public static Map<Pair<Item, Integer>, Set<String>> betweenlandsItemStackTooltips = new HashMap<>();
-	public static Map<Item, Set<String>> betweenlandsItemTooltips = new HashMap<>();
+	public static Map<Pair<Item, Integer>, Collection<String>> betweenlandsItemStackTooltips = new HashMap<>();
+	public static Map<Item, Collection<String>> betweenlandsItemTooltips = new HashMap<>();
 
 	@Override
 	public void preInit(){
@@ -81,7 +78,7 @@ public class ClientProxy extends CommonProxy {
 					ItemStack stack = (ItemStack) ingredient;
 					if(stack.isEmpty()){continue;}
 					Pair<Item, Integer> key = new ImmutablePair<>(stack.getItem(), stack.getItemDamage());
-					Set<String> machines = betweenlandsItemStackTooltips.computeIfAbsent(key, (a) -> new HashSet<>());
+					Collection<String> machines = betweenlandsItemStackTooltips.computeIfAbsent(key, (a) -> new ArrayList<>());
 					machines.add(I18n.format("tooltip.bl.recipes.silk_bundle"));
 					machines.add(I18n.format("tooltip.bl.recipes.steeping_pot"));
 				}
@@ -90,21 +87,22 @@ public class ClientProxy extends CommonProxy {
 		CompostRecipe.RECIPES.forEach(recipe -> {
 			if(recipe instanceof CompostRecipe){
 				ItemStack stack = ((CompostRecipe) recipe).getInput();
-				Set<String> machines;
+				Collection<String> machines;
 				if(stack.getItemDamage() == OreDictionary.WILDCARD_VALUE){
-					machines = betweenlandsItemTooltips.computeIfAbsent(stack.getItem(), a -> new HashSet<>());
+					machines = betweenlandsItemTooltips.computeIfAbsent(stack.getItem(), a -> new ArrayList<>());
 				} else {
 					Pair<Item, Integer> key = new ImmutablePair<>(stack.getItem(), stack.getItemDamage());
-					machines = betweenlandsItemStackTooltips.computeIfAbsent(key, a -> new HashSet<>());
+					machines = betweenlandsItemStackTooltips.computeIfAbsent(key, a -> new ArrayList<>());
 				}
 				machines.add(I18n.format("tooltip.bl.recipes.compost_bin"));
 			}
 		});
 
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SPIRIT_FRUIT, a -> new HashSet<>()).add(I18n.format("tooltip.bl.recipes.offering_table"));
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.MOSS_FILTER, a -> new HashSet<>()).add(I18n.format("tooltip.bl.recipes.water_filter"));
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SILK_FILTER, a -> new HashSet<>()).add(I18n.format("tooltip.bl.recipes.water_filter"));
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SILK_BUNDLE, a -> new HashSet<>()).add(I18n.format("tooltip.bl.recipes.steeping_pot"));
+		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SPIRIT_FRUIT, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.offering_table"));
+		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.MOSS_FILTER, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.water_filter"));
+		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SILK_FILTER, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.water_filter"));
+		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SILK_BUNDLE, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.steeping_pot"));
+
 	}
 
 	@Override

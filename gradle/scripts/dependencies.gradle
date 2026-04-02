@@ -105,6 +105,8 @@ dependencies {
     implementation('curse.maven:hwyla-253449:2568751')
     implementation('curse.maven:thaumicwaila-362757:2893790')
 
+    implementation('curse.maven:modularmachinery-community-edition-817377:6480528')
+
     //implementation('curse.maven:fancymenu-367706:4655936')
     //implementation('curse.maven:konkrete-410295:4514895')
 
