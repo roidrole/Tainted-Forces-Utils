@@ -27,11 +27,11 @@ public class AspectRender implements IWailaTooltipRenderer {
 		GlStateManager.pushMatrix();
 		Minecraft.getMinecraft().getTextureManager().bindTexture(aspect.getImage());
 		GlStateManager.enableBlend();
-		Color color = new Color(aspect.getColor());
+
 		GlStateManager.color(
-			(float) color.getRed() / 255.0F,
-			(float) color.getGreen() / 255.0F,
-			(float) color.getBlue() / 255.0F
+			(float) ((aspect.getColor() >> 16) & 0xFF) / 255.0F,
+			(float) ((aspect.getColor() >> 8) & 0xFF) / 255.0F,
+			(float) ((aspect.getColor()) & 0xFF) / 255.0F
 		);
 		Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 8, 8, 8, 8);
 		GlStateManager.popMatrix();
