@@ -18,6 +18,7 @@
 		"immersivecables.RecipeRegistryMixin",
 		"immersiveengineering.SqueezerRecipeCategoryMixin",
 		"mystgears.TileEntityMechanicalCrafterMixin",
+		"railcraft.BlockStrengthGlassMixin",
 		"railcraft.ItemTieMixin",
 		"railcraft.LootPluginMixin",
 		"railcraft.RailCraftMixin",
