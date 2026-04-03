@@ -11,7 +11,7 @@ public abstract class BlockStrengthGlassMixin {
 	 * @reason Original code gathers ItemStack capabilities, which is bad in this pack. Remaking it with CT
 	 * Saves 1.3 seconds of load time
 	 */
-	@Overwrite
+	@Overwrite(remap = false)
 	public void defineRecipes(){
 		//No-op
 	}
