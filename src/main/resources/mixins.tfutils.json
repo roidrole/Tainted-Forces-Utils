@@ -13,6 +13,7 @@
 		"botania.SubTileGeneratingMixin",
 		"botania.SubTileMarimorphosisMixin",
 		"buildinggadgets.GadgetCopyPasteMixin",
+		"cyberware.TileEntityBeaconLargeMixin",
 		"extrautils.IBurnListAccessor",
 		"extrautils.MachineInitMixin",
 		"extrautils.XUJEIPluginMixin",

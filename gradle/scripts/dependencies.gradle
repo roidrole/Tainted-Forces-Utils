@@ -65,6 +65,7 @@ dependencies {
     implementation('curse.maven:thaumcraft-223628:2629023')
     implementation('curse.maven:bubbles-a-baubles-fork-995393:6807550')
     implementation('curse.maven:thaumic-jei-285492:5646810')
+    implementation('curse.maven:thaumic-augmentation-319441:6047659')
 
     implementation('curse.maven:thermal-expansion-69163:2926431')
     implementation('curse.maven:thermal-dynamics-227443:2920505')
@@ -107,6 +108,8 @@ dependencies {
     implementation('curse.maven:thaumicwaila-362757:2893790')
 
     implementation('curse.maven:modularmachinery-community-edition-817377:6480528')
+
+    implementation('curse.maven:roboticparts-283377:3366534')
 
     //implementation('curse.maven:fancymenu-367706:4655936')
     //implementation('curse.maven:konkrete-410295:4514895')
