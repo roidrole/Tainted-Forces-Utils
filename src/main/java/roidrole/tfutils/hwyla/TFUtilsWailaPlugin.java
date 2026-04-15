@@ -4,9 +4,6 @@ import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import mcp.mobius.waila.api.WailaPlugin;
 import net.minecraft.tileentity.TileEntity;
-import thaumcraft.api.aspects.IEssentiaTransport;
-import thaumcraft.api.items.IGogglesDisplayExtended;
-import thaumcraft.common.blocks.devices.BlockVisBattery;
 
 @WailaPlugin
 public class TFUtilsWailaPlugin implements IWailaPlugin {
@@ -14,15 +11,6 @@ public class TFUtilsWailaPlugin implements IWailaPlugin {
 	public void register(IWailaRegistrar registrar) {
 		registrar.registerBodyProvider(ProviderMechanicalPower.INSTANCE, TileEntity.class);
 		registrar.registerNBTProvider(ProviderMechanicalPower.INSTANCE, TileEntity.class);
-
-		registrar.registerBodyProvider(ProviderEssentiaTransport.INSTANCE, IEssentiaTransport.class);
-		registrar.registerNBTProvider(ProviderEssentiaTransport.INSTANCE, IEssentiaTransport.class);
-
-		registrar.registerBodyProvider(ProviderBlockVisBattery.INSTANCE, BlockVisBattery.class);
-
-		registrar.registerBodyProvider(ProviderGogglesDisplay.INSTANCE, IGogglesDisplayExtended.class);
-
-		registrar.registerTooltipRenderer("thaumicwaila.aspect", new RendererAspect());
 	}
 
 }

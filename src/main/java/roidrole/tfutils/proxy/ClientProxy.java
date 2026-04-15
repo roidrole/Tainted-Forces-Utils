@@ -40,7 +40,10 @@ import thebetweenlands.common.world.event.EventWinter;
 import thebetweenlands.util.GLUProjection;
 import thebetweenlands.util.RenderUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {

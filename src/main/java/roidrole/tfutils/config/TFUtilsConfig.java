@@ -9,14 +9,6 @@ import roidrole.tfutils.Tags;
 )
 public class TFUtilsConfig {
 
-	@Config.Comment({
-		"Due to a bug between Thaumcraft, BASM and CNPCs, the aspect list gets messed up",
-		"As a fix, this tweaks override Thaumic Speedup's check for overriding the aspect cache",
-		"That way, the items aren't scanned, and the bug has no effect",
-		"Disable once when adding new mods, and never have it enabled at the same time as delayItemStackCapabilityInit"
-	})
-	public static boolean regenAspectCache = false;
-
 	@Config.Comment("How much mana the hydrogeanas will generate every 3 ticks (2 if raining)")
 	public static int hydrogenanasPowerMultiplier = 3;
 
