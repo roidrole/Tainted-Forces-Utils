@@ -25,7 +25,6 @@
 		"railcraft.ItemTieMixin",
 		"railcraft.LootPluginMixin",
 		"railcraft.RailCraftMixin",
-		"tfc.BlockBlastFurnaceMixin",
 		"tfc.BlockCharcoalForgeMixin",
 		"tfc.BlockLeavesTFCMixin",
 		"tfc.CalendarTFCMixin",
