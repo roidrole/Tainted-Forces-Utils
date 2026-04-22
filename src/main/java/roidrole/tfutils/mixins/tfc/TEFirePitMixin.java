@@ -17,6 +17,6 @@ public abstract class TEFirePitMixin {
 		remap = false
 	)
 	private boolean ignoreForgeFuel(ItemStack stack){
-		return true;
+		return false;
 	}
 }
