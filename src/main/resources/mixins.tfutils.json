@@ -17,6 +17,7 @@
 		"extrautils.IBurnListAccessor",
 		"extrautils.MachineInitMixin",
 		"extrautils.XUJEIPluginMixin",
+		"fancymenu.ResourcePackAnimationRendererMixin",
 		"ic2.ItemReactorLithiumCellMixin",
 		"immersivecables.RecipeRegistryMixin",
 		"immersiveengineering.SqueezerRecipeCategoryMixin",
