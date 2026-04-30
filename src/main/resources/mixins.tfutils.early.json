@@ -1,0 +1,14 @@
+{
+	"package": "roidrole.tfutils.mixins.minecraft",
+	"required": true,
+	"refmap": "mixins.tfutils.refmap.json",
+	"target": "@env(DEFAULT)",
+	"minVersion": "0.8.5",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"StatisticsManagerMixin"
+	],
+	"server": [],
+	"client": [
+	]
+}
