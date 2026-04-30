@@ -18,7 +18,9 @@
 		"extrautils.MachineInitMixin",
 		"extrautils.XUJEIPluginMixin",
 		"fancymenu.ResourcePackAnimationRendererMixin",
+		"ic2.ExplosionIC2Mixin",
 		"ic2.ItemReactorLithiumCellMixin",
+		"ic2.SubModuleJEIMixin",
 		"immersivecables.RecipeRegistryMixin",
 		"immersiveengineering.SqueezerRecipeCategoryMixin",
 		"mystgears.TileEntityMechanicalCrafterMixin",
@@ -55,7 +57,9 @@
 		"thermal.CoverHelperMixin",
 		"thermal.ItemCoverMixin",
 		"thermal.JEIPluginTDMixin",
-		"thermal.ProxyClientMixin"
+		"thermal.ProxyClientMixin",
+		"visualores.TCClientCacheAccessor",
+		"visualores.TCDimensionCacheAccessor"
 	],
 	"server": [],
 	"client": [
