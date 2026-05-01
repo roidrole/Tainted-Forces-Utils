@@ -6,7 +6,6 @@ import hellfall.visualores.database.thaumcraft.TCDimensionCache;
 import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -18,49 +17,46 @@ import thaumcraft.common.world.aura.AuraChunk;
 import java.util.Map;
 
 public class PacketAuraToClient implements IMessage, IMessageHandler<PacketAuraToClient, IMessage> {
-	int chunkX;
-	int chunkZ;
-
+	ChunkPos pos;
 	short base;
 	float vis;
 	float flux;
 
 	public PacketAuraToClient() {}
 
-	public PacketAuraToClient(int x, int y, AuraChunk chunk) {
-		this.chunkX = x;
-		this.chunkZ = y;
+	public PacketAuraToClient(AuraChunk chunk) {
+		this.pos = chunk.getLoc();
 		this.base = chunk.getBase();
 		this.vis = chunk.getVis();
 		this.flux = chunk.getFlux();
 	}
 
 	public void toBytes(ByteBuf dos) {
-		dos.writeInt(chunkX);
-		dos.writeInt(chunkZ);
+		dos.writeInt(pos.x);
+		dos.writeInt(pos.z);
 		dos.writeShort(this.base);
 		dos.writeFloat(this.vis);
 		dos.writeFloat(this.flux);
 	}
 
 	public void fromBytes(ByteBuf dat) {
-	   this.chunkX = dat.readInt();
-	   this.chunkZ = dat.readInt();
-	   this.base = dat.readShort();
-	   this.vis = dat.readFloat();
-	   this.flux = dat.readFloat();
+		int x = dat.readInt();
+		int z = dat.readInt();
+		this.pos = new ChunkPos(x, z);
+		this.base = dat.readShort();
+		this.vis = dat.readFloat();
+		this.flux = dat.readFloat();
 	}
 
 	public IMessage onMessage(final PacketAuraToClient message, MessageContext ctx) {
-		EntityPlayerSP player = Minecraft.getMinecraft().player;
-		Int2ObjectMap<TCDimensionCache> tcCache = ((TCClientCacheAccessor)TCClientCache.instance).getCache();
-		if(!tcCache.containsKey(player.dimension)){
-			tcCache.put(player.dimension, new TCDimensionCache());
-		}
-		TCDimensionCache dimCache = tcCache.get(player.dimension);
-		Map<ChunkPos, AuraFluxPosition> chunkCache = ((TCDimensionCacheAccessor)dimCache).getChunks();
+		//Scheduling because hashMap access off-thread is unsafe
+		Minecraft.getMinecraft().addScheduledTask(() -> {
+			Int2ObjectMap<TCDimensionCache> tcCache = ((TCClientCacheAccessor)TCClientCache.instance).getCache();
+			TCDimensionCache dimCache = tcCache.computeIfAbsent(0, key -> new TCDimensionCache());
+			Map<ChunkPos, AuraFluxPosition> chunkCache = ((TCDimensionCacheAccessor)dimCache).getChunks();
 
-		chunkCache.put(new ChunkPos(this.chunkX, this.chunkZ), new AuraFluxPosition(this.base, this.vis, this.flux, this.chunkX, this.chunkZ));
+			chunkCache.put(message.pos, new AuraFluxPosition(message.base, message.vis, message.flux, message.pos.x, message.pos.z));
+		});
 		return null;
 	}
 }

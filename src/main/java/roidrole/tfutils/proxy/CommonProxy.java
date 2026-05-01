@@ -1,6 +1,5 @@
 package roidrole.tfutils.proxy;
 
-import com.bloodnbonesgaming.bnbgamingcore.events.AdvancementAboutToLoadEvent;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import net.minecraft.block.Block;
@@ -122,7 +121,7 @@ public class CommonProxy {
 	}
 
 	public void registerEventHandlers(){
-		//MinecraftForge.EVENT_BUS.register(WorldTickHandler.class);
+		MinecraftForge.EVENT_BUS.register(WorldTickHandler.class);
 
 		//Betweenlands
 		WorldStorageImpl.register();

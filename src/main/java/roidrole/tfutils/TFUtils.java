@@ -35,7 +35,7 @@ public class TFUtils {
 
         PROXY.preInit();
         PROXY.registerEventHandlers();
-        //PacketHandler.preInit();
+        PacketHandler.preInit();
     }
 
     @Mod.EventHandler

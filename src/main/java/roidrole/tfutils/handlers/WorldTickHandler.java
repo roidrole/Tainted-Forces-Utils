@@ -17,6 +17,9 @@ public class WorldTickHandler {
 		if(!(event.world instanceof WorldServer)){
 			return;
 		}
+		if(event.phase != TickEvent.Phase.END){
+			return;
+		}
 		WorldServer world = (WorldServer) event.world;
 		if(world.provider.getDimension() != 0){
 			return;
@@ -31,7 +34,7 @@ public class WorldTickHandler {
 				continue;
 			}
 			PacketHandler.INSTANCE.sendToAllAround(
-				new PacketAuraToClient(chunk.x, chunk.z, auraChunk),
+				new PacketAuraToClient(auraChunk),
 				new NetworkRegistry.TargetPoint(0, chunk.x << 4, world.getSeaLevel(), chunk.z << 4, 192)
 			);
 		}
