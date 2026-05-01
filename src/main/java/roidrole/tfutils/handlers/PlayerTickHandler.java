@@ -11,9 +11,9 @@ import thaumcraft.common.world.aura.AuraChunk;
 import thaumcraft.common.world.aura.AuraHandler;
 import thaumcraft.common.world.aura.AuraWorld;
 
-public class WorldTickHandler {
+public class PlayerTickHandler {
 	@SubscribeEvent
-	public static void onWorldTick(TickEvent.PlayerTickEvent event){
+	public static void onPlayerTick(TickEvent.PlayerTickEvent event){
 		if(event.side != Side.SERVER){
 			return;
 		}
