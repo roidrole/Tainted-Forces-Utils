@@ -12,50 +12,74 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import roidrole.tfutils.mixins.visualores.TCClientCacheAccessor;
 import roidrole.tfutils.mixins.visualores.TCDimensionCacheAccessor;
-import thaumcraft.common.world.aura.AuraChunk;
 
 import java.util.Map;
 
 public class PacketAuraToClient implements IMessage, IMessageHandler<PacketAuraToClient, IMessage> {
-	ChunkPos pos;
-	short base;
-	float vis;
-	float flux;
+	int startX;
+	int startZ;
+	short[] base;
+	float[] vis;
+	float[] flux;
 
 	public PacketAuraToClient() {}
 
-	public PacketAuraToClient(AuraChunk chunk) {
-		this.pos = chunk.getLoc();
-		this.base = chunk.getBase();
-		this.vis = chunk.getVis();
-		this.flux = chunk.getFlux();
+	public PacketAuraToClient(int startX, int startZ, short[] base, float[] vis, float[] flux) {
+		this.startX = startX;
+		this.startZ = startZ;
+		this.base = base;
+		this.vis = vis;
+		this.flux = flux;
 	}
 
 	public void toBytes(ByteBuf dos) {
-		dos.writeInt(pos.x);
-		dos.writeInt(pos.z);
-		dos.writeShort(this.base);
-		dos.writeFloat(this.vis);
-		dos.writeFloat(this.flux);
+		dos.writeInt(startX);
+		dos.writeInt(startZ);
+		for (int i = 0; i < 169; i++) {
+			dos.writeShort(this.base[i]);
+			dos.writeFloat(this.vis[i]);
+			dos.writeFloat(this.flux[i]);
+		}
 	}
 
 	public void fromBytes(ByteBuf dat) {
-		int x = dat.readInt();
-		int z = dat.readInt();
-		this.pos = new ChunkPos(x, z);
-		this.base = dat.readShort();
-		this.vis = dat.readFloat();
-		this.flux = dat.readFloat();
+		this.startX = dat.readInt();
+		this.startZ = dat.readInt();
+		this.base = new short[169];
+		this.vis = new float[169];
+		this.flux = new float[169];
+		for (int i = 0; i < 169; i++) {
+			this.base[i] = dat.readShort();
+			this.vis[i] = dat.readFloat();
+			this.flux[i] = dat.readFloat();
+		}
 	}
 
 	public IMessage onMessage(final PacketAuraToClient message, MessageContext ctx) {
+		//Doing the AuraFluxPosition recreation off-thread
+		AuraFluxPosition[] contents = new AuraFluxPosition[169];
+		for (int i = 0; i < 169; i++) {
+			if(message.base[i] == -1){
+				contents[i] = null;
+				continue;
+			}
+			int posX = message.startX + (i / 13);
+			int posZ = message.startZ + (i % 13);
+			contents[i] = new AuraFluxPosition(message.base[i], message.vis[i], message.flux[i], posX, posZ);
+		}
+
 		//Scheduling because hashMap access off-thread is unsafe
 		Minecraft.getMinecraft().addScheduledTask(() -> {
 			Int2ObjectMap<TCDimensionCache> tcCache = ((TCClientCacheAccessor)TCClientCache.instance).getCache();
 			TCDimensionCache dimCache = tcCache.computeIfAbsent(0, key -> new TCDimensionCache());
 			Map<ChunkPos, AuraFluxPosition> chunkCache = ((TCDimensionCacheAccessor)dimCache).getChunks();
 
-			chunkCache.put(message.pos, new AuraFluxPosition(message.base, message.vis, message.flux, message.pos.x, message.pos.z));
+			for (AuraFluxPosition pos : contents){
+				if(pos == null){
+					continue;
+				}
+				chunkCache.put(new ChunkPos(pos.x, pos.z), pos);
+			}
 		});
 		return null;
 	}
