@@ -12,6 +12,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import roidrole.tfutils.mixins.visualores.TCClientCacheAccessor;
 import roidrole.tfutils.mixins.visualores.TCDimensionCacheAccessor;
+import thaumcraft.common.world.aura.AuraChunk;
+import thaumcraft.common.world.aura.AuraHandler;
+import thaumcraft.common.world.aura.AuraWorld;
 
 import java.util.Map;
 
@@ -24,12 +27,31 @@ public class PacketAuraToClient implements IMessage, IMessageHandler<PacketAuraT
 
 	public PacketAuraToClient() {}
 
-	public PacketAuraToClient(int startX, int startZ, short[] base, float[] vis, float[] flux) {
+	public PacketAuraToClient(int startX, int startZ){
+		//Range is hardcoded as a radius of 6 chunks
 		this.startX = startX;
 		this.startZ = startZ;
-		this.base = base;
-		this.vis = vis;
-		this.flux = flux;
+		AuraWorld auraWorld = AuraHandler.getAuraWorld(0);
+
+		//Payload
+		this.base = new short[169];
+		this.vis = new float[169];
+		this.flux = new float[169];
+
+		int index = 0;
+		for (int x = startX; x < startX + 13; x++){
+			for (int z = startZ; z < startZ + 13; z++){
+				AuraChunk auraChunk = auraWorld.getAuraChunkAt(x, z);
+				if(auraChunk == null){
+					base[index] = -1;
+				} else {
+					base[index] = auraChunk.getBase();
+					vis[index] = auraChunk.getVis();
+					flux[index] = auraChunk.getFlux();
+				}
+				index++;
+			}
+		}
 	}
 
 	public void toBytes(ByteBuf dos) {
