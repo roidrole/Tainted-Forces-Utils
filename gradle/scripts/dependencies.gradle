@@ -37,10 +37,6 @@ dependencies {
     implementation('curse.maven:industrial-craft-242638:3838713')
     implementation('curse.maven:mekanism-268560:2835175')
     implementation('com.cleanroommc:configanytime:3.0')
-    implementation('curse.maven:terrafirmacraft-302973:3645502')
-    implementation('curse.maven:tfc-metallum-339156:3735220')
-    implementation('curse.maven:tfctech-unofficial-340660:3209033')
-    implementation('curse.maven:metallurgy-4-reforged-300890:5279337')
     implementation('curse.maven:magneticraft-224808:3791484')
     implementation('curse.maven:mysticalmechanics-300742:3006392')
     implementation('curse.maven:mystical-gears-317915:3206298')
@@ -60,6 +56,12 @@ dependencies {
     implementation('curse.maven:immersive-cables-283992:2595013')
     implementation('curse.maven:immersive-engineering-231951:2974106')
     implementation('curse.maven:immersive-intelligence-344344:4979247')
+
+    implementation('curse.maven:terrafirmacraft-302973:3645502')
+    implementation('curse.maven:tfc-metallum-339156:3735220')
+    implementation('curse.maven:tfctech-unofficial-340660:3209033')
+    implementation('curse.maven:metallurgy-4-reforged-300890:5279337')
+    implementation('curse.maven:firmalife-453394:3612887')
 
     implementation('curse.maven:thaumcraft-223628:2629023')
     implementation('curse.maven:bubbles-a-baubles-fork-995393:6807550')

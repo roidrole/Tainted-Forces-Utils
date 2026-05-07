@@ -15,7 +15,8 @@ public abstract class SubModuleJEIMixin {
 		method = "register",
 		at = @At(
 			value = "INVOKE",
-			target = "Lmezz/jei/api/IModRegistry;addRecipeHandlers([Lmezz/jei/api/recipe/IRecipeHandler;)V"
+			target = "Lmezz/jei/api/IModRegistry;addRecipeHandlers([Lmezz/jei/api/recipe/IRecipeHandler;)V",
+			ordinal = 3
 		),
 		remap = false
 	)
