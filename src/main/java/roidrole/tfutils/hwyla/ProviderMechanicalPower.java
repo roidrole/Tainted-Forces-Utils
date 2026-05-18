@@ -13,10 +13,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProviderMechanicalPower implements IWailaDataProvider {
 	public static final ProviderMechanicalPower INSTANCE = new ProviderMechanicalPower();
+	public static final DecimalFormat format = new DecimalFormat();
 
 	public static final String mechPowerKey = "mech_power";
 
@@ -37,7 +39,7 @@ public class ProviderMechanicalPower implements IWailaDataProvider {
 		if(!tag.hasKey(mechPowerKey)){
 			return tooltip;
 		}
-		tooltip.add("Mechanical power: "+tag.getDouble(mechPowerKey));
+		tooltip.add("Mechanical power: "+String.format("%.2f", tag.getDouble(mechPowerKey)));
 		return tooltip;
 
 	}
