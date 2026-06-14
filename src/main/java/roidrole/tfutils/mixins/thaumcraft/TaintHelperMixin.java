@@ -51,8 +51,8 @@ public abstract class TaintHelperMixin {
 		}
 
 		IBlockState blockState = world.getBlockState(t);
-		Material material = blockState.getBlock().getMaterial(blockState);
-		float hardness = blockState.getBlock().getBlockHardness(blockState, world, t);
+		Material material = blockState.getMaterial();
+		float hardness = blockState.getBlockHardness(world, t);
 		if (hardness < 0.0F || hardness > 10.0F) {
 			return;
 		}

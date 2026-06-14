@@ -16,6 +16,7 @@
 		"botania.SubTileGeneratingMixin",
 		"botania.SubTileMarimorphosisMixin",
 		"buildinggadgets.GadgetCopyPasteMixin",
+		"cnpcs.ServerCloneControllerMixin",
 		"cyberware.TileEntityBeaconLargeMixin",
 		"extrautils.IBurnListAccessor",
 		"extrautils.MachineInitMixin",
