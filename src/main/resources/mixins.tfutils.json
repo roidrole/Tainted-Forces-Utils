@@ -55,17 +55,13 @@
 		"tfctech.ItemBlowpipeMixin",
 		"tfctech.ItemTypeMixin",
 		"tfctech.ItemWireMixin",
-		"thaumcraft.BlockDioptraMixin",
 		"thaumcraft.TaintHelperMixin",
-		"thaumcraft.TileDioptraMixin",
 		"thebetweenlands.ItemGreatswordMixin",
 		"thebetweenlands.TheBetweenlandsMixin",
 		"thermal.CoverHelperMixin",
 		"thermal.ItemCoverMixin",
 		"thermal.JEIPluginTDMixin",
-		"thermal.ProxyClientMixin",
-		"visualores.TCClientCacheAccessor",
-		"visualores.TCDimensionCacheAccessor"
+		"thermal.ProxyClientMixin"
 	],
 	"server": [],
 	"client": [

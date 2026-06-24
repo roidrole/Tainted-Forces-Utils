@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
-import roidrole.tfutils.network.PacketHandler;
 import roidrole.tfutils.proxy.CommonProxy;
 
 
@@ -35,7 +34,6 @@ public class TFUtils {
 
         PROXY.preInit();
         PROXY.registerEventHandlers();
-        PacketHandler.preInit();
     }
 
     @Mod.EventHandler
