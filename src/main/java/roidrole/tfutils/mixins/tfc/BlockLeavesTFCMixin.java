@@ -43,15 +43,17 @@ public abstract class BlockLeavesTFCMixin extends BlockLeaves {
 		if (world.isRemote || !state.getValue(DECAYABLE)){
 			return;
 		}
-		int radius = wood.getMaxDecayDistance();
-		int sideSize = 2 * radius + 1;
+		final int radius = wood.getMaxDecayDistance();
+		final int sideSize = 2 * radius + 1;
+		final int sideSizeSq = sideSize * sideSize;
 
-		boolean[] evaluated = new boolean[sideSize*sideSize*sideSize];
+		//The evaluated cache. Allocated every call. The JVM will happily optimize this
+		final boolean[] evaluated = new boolean[sideSizeSq * sideSize];
 		int minX = posIn.getX() - radius;
 		int minY = posIn.getY() - radius;
 		int minZ = posIn.getZ() - radius;
 
-		BlockLogTFC log = BlockLogTFC.get(wood);
+		final BlockLogTFC log = BlockLogTFC.get(wood);
 
 		tfutils_queueX1.clear();
 		tfutils_queueY1.clear();
@@ -59,20 +61,21 @@ public abstract class BlockLeavesTFCMixin extends BlockLeaves {
 		tfutils_queueX2.clear();
 		tfutils_queueY2.clear();
 		tfutils_queueZ2.clear();
+
 		tfutils_queueX1.add(posIn.getX());
 		tfutils_queueY1.add(posIn.getY());
 		tfutils_queueZ1.add(posIn.getZ());
 		for (int i = 1; i < radius; i++) {
 			for (int j = 0; j < tfutils_queueX1.size(); j++) {
-				int xOrigin = tfutils_queueX1.getInt(j);
-				int yOrigin = tfutils_queueY1.getInt(j);
-				int zOrigin = tfutils_queueZ1.getInt(j);
+				final int xOrigin = tfutils_queueX1.getInt(j);
+				final int yOrigin = tfutils_queueY1.getInt(j);
+				final int zOrigin = tfutils_queueZ1.getInt(j);
 
 				for(EnumFacing facing : EnumFacing.VALUES){
-					int x = xOrigin + facing.getXOffset();
-					int y = yOrigin + facing.getYOffset();
-					int z = zOrigin + facing.getZOffset();
-					int relPos = (x - minX) + (y - minY) * sideSize + (z - minZ) * sideSize * sideSize;
+					final int x = xOrigin + facing.getXOffset();
+					final int y = yOrigin + facing.getYOffset();
+					final int z = zOrigin + facing.getZOffset();
+					final int relPos = (x - minX) + (y - minY) * sideSize + (z - minZ) * sideSizeSq;
 					if(evaluated[relPos]){
 						continue;
 					}
@@ -80,7 +83,7 @@ public abstract class BlockLeavesTFCMixin extends BlockLeaves {
 					if(!world.isBlockLoaded(tfutils_decayPos)){
 						continue;
 					}
-					IBlockState stateCheck = world.getBlockState(tfutils_decayPos);
+					final IBlockState stateCheck = world.getBlockState(tfutils_decayPos);
 					if (stateCheck.getBlock() == log) {
 						return;
 					}
@@ -96,7 +99,7 @@ public abstract class BlockLeavesTFCMixin extends BlockLeaves {
 			tfutils_queueY1.clear();
 			tfutils_queueZ1.clear();
 			//Swap queue 1 and 2. Since all 1 queue are equal (but must remain distinct), we can make this easier
-			IntList tempQueue = tfutils_queueZ1;
+			final IntList tempQueue = tfutils_queueZ1;
 			tfutils_queueZ1 = tfutils_queueZ2;
 			tfutils_queueZ2 = tfutils_queueY1;
 			tfutils_queueY1 = tfutils_queueY2;
@@ -106,10 +109,10 @@ public abstract class BlockLeavesTFCMixin extends BlockLeaves {
 		}
 
 		world.setBlockToAir(posIn);
-		int particleScale = 10;
-		double x = posIn.getX();
-		double y = posIn.getY();
-		double z = posIn.getZ();
+		final int particleScale = 10;
+		final double x = posIn.getX();
+		final double y = posIn.getY();
+		final double z = posIn.getZ();
 		for (int i = 1; i < RNG.nextInt(4); i++)
 		{
 			switch (RNG.nextInt(4))
