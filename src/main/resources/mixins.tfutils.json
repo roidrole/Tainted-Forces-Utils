@@ -22,6 +22,7 @@
 		"extrautils.MachineInitMixin",
 		"extrautils.XUJEIPluginMixin",
 		"fancymenu.ResourcePackAnimationRendererMixin",
+		"ic2.ConfigMixin",
 		"ic2.ExplosionIC2Mixin",
 		"ic2.ItemReactorLithiumCellMixin",
 		"ic2.SubModuleJEIMixin",
