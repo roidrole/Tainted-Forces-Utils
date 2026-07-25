@@ -34,7 +34,6 @@
 		"railcraft.LootPluginMixin",
 		"railcraft.RailCraftMixin",
 		"tfc.BlockCharcoalForgeMixin",
-		"tfc.BlockLeavesTFCMixin",
 		"tfc.CastingRecipeWrapperMixin",
 		"tfc.ChunkGenTFCMixin",
 		"tfc.FilledMoldCapabilityMixin",
