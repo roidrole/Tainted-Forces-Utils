@@ -49,7 +49,6 @@
 		"tfctech.ItemBlowpipeMixin",
 		"tfctech.ItemTypeMixin",
 		"tfctech.ItemWireMixin",
-		"thaumcraft.TaintHelperMixin",
 		"thebetweenlands.ItemGreatswordMixin",
 		"thebetweenlands.TheBetweenlandsMixin",
 		"thermal.CoverHelperMixin",
