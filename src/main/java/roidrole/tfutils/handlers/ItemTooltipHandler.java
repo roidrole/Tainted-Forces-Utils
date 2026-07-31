@@ -13,7 +13,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import roidrole.tfutils.proxy.ClientProxy;
 import thebetweenlands.api.aspect.ItemAspectContainer;
 import thebetweenlands.api.capability.IFoodSicknessCapability;
@@ -28,12 +27,10 @@ import thebetweenlands.common.herblore.aspect.AspectManager;
 import thebetweenlands.common.item.armor.amphibious.AmphibiousArmorUpgrades;
 import thebetweenlands.common.recipe.censer.AbstractCenserRecipe;
 import thebetweenlands.common.recipe.misc.AnimatorRecipe;
-import thebetweenlands.common.recipe.mortar.PestleAndMortarRecipe;
 import thebetweenlands.common.recipe.purifier.PurifierRecipe;
 import thebetweenlands.common.registries.CapabilityRegistry;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static thebetweenlands.common.capability.circlegem.CircleGemHelper.ITEM_GEM_NBT_TAG;
@@ -107,10 +104,7 @@ public class ItemTooltipHandler {
 			}
 		}
 
-		if(PestleAndMortarRecipe.getRecipe(stack, stack, true) != null) {
-			usedInMachines.add(I18n.format("tooltip.bl.recipes.mortar"));
-		}
-
+		//Multiple implementations of an interface that does not expose the Ingredient
 		if(AnimatorRecipe.getRecipe(stack) != null) {
 			usedInMachines.add(I18n.format("tooltip.bl.recipes.animator"));
 		}
@@ -123,11 +117,12 @@ public class ItemTooltipHandler {
 			usedInMachines.add(I18n.format("tooltip.bl.recipes.censer_secondary"));
 		}
 
+		//Multiple implementations of an interface that does not expose the Ingredient
 		if(!PurifierRecipe.getRecipeOutput(stack).isEmpty()) {
 			usedInMachines.add(I18n.format("tooltip.bl.recipes.purifier"));
 		}
 
-		//Amphibious upgrade
+		//Amphibious upgrade — They contain only a Predicate<ItemStack>
 		List<String> amphibiousUpgrades = new ArrayList<>();
 		if(AmphibiousArmorUpgrades.getUpgrade(EntityEquipmentSlot.HEAD, stack) != null) {
 			amphibiousUpgrades.add(I18n.format("tooltip.bl.amphibious_upgrade.helmet"));
@@ -145,15 +140,9 @@ public class ItemTooltipHandler {
 			usedInMachines.add(I18n.format("tooltip.bl.amphibious_upgrade.format", String.join("/", amphibiousUpgrades)));
 		}
 
-		//Steeping pot, Silk Bundle, hard-coded
-		Collection<String> tooltip = ClientProxy.betweenlandsItemStackTooltips.get(new ImmutablePair<>(stack.getItem(), stack.getItemDamage()));
-		if(tooltip != null){
-			usedInMachines.addAll(tooltip);
-		}
-		tooltip = ClientProxy.betweenlandsItemTooltips.get(stack.getItem());
-		if(tooltip != null){
-			usedInMachines.addAll(tooltip);
-		}
+		//Steeping pot, Silk Bundle, hard-coded, Pestle and mortar
+		//Essentially, all those that I can realistically get all matching stacks without iterating the registry
+		ClientProxy.betweenlandsTooltips.collect(stack, usedInMachines);
 
 		if(!usedInMachines.isEmpty()) {
 			toolTip.add(I18n.format("tooltip.bl.recipes.used_in", String.join(", ", usedInMachines)));

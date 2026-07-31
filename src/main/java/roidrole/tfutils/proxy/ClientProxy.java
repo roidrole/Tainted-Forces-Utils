@@ -9,13 +9,11 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import roidrole.tfutils.blocks.MetalPanel;
 import roidrole.tfutils.blocks.NetherMetal;
 import roidrole.tfutils.blocks.NetherSteelSlab;
 import roidrole.tfutils.handlers.ItemTooltipHandler;
+import roidrole.tfutils.utils.IngredientMultiMap;
 import thebetweenlands.client.gui.GuiFishStaminaBar;
 import thebetweenlands.client.gui.menu.GuiBLMainMenu;
 import thebetweenlands.client.gui.menu.GuiDownloadTerrainBetweenlands;
@@ -33,6 +31,7 @@ import thebetweenlands.common.item.tools.ItemBLFishingRod;
 import thebetweenlands.common.item.tools.bow.ItemBLBow;
 import thebetweenlands.common.recipe.misc.CompostRecipe;
 import thebetweenlands.common.recipe.misc.SteepingPotRecipes;
+import thebetweenlands.common.recipe.mortar.PestleAndMortarRecipe;
 import thebetweenlands.common.registries.ItemRegistry;
 import thebetweenlands.common.world.event.EventHeavyRain;
 import thebetweenlands.common.world.event.EventSpoopy;
@@ -40,15 +39,9 @@ import thebetweenlands.common.world.event.EventWinter;
 import thebetweenlands.util.GLUProjection;
 import thebetweenlands.util.RenderUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-	public static Map<Pair<Item, Integer>, Collection<String>> betweenlandsItemStackTooltips = new HashMap<>();
-	public static Map<Item, Collection<String>> betweenlandsItemTooltips = new HashMap<>();
+	public static IngredientMultiMap<String> betweenlandsTooltips = new IngredientMultiMap<>();
 
 	@Override
 	public void preInit(){
@@ -75,37 +68,33 @@ public class ClientProxy extends CommonProxy {
 		super.init();
 
 		//Compute Betweenlands' Tooltips
+		final String silkBundleString = I18n.format("tooltip.bl.recipes.silk_bundle");
+		final String steepingPotString = I18n.format("tooltip.bl.recipes.steeping_pot");
+		final String compostBinString = I18n.format("tooltip.bl.recipes.compost_bin");
+		final String waterFilterString = I18n.format("tooltip.bl.recipes.water_filter");
+		final String offeringTableString = I18n.format("tooltip.bl.recipes.offering_table");
+		final String pestleAndMortalString = I18n.format("tooltip.bl.recipes.mortar");
+
 		SteepingPotRecipes.getRecipeList().forEach(recipe -> {
 			for (Object ingredient : recipe.getInputs()){
-				if(ingredient instanceof ItemStack){
-					ItemStack stack = (ItemStack) ingredient;
-					if(stack.isEmpty()){continue;}
-					Pair<Item, Integer> key = new ImmutablePair<>(stack.getItem(), stack.getItemDamage());
-					Collection<String> machines = betweenlandsItemStackTooltips.computeIfAbsent(key, (a) -> new ArrayList<>());
-					machines.add(I18n.format("tooltip.bl.recipes.silk_bundle"));
-					machines.add(I18n.format("tooltip.bl.recipes.steeping_pot"));
-				}
+				betweenlandsTooltips.put(ingredient, silkBundleString);
+				betweenlandsTooltips.put(ingredient, steepingPotString);
 			}
 		});
 		CompostRecipe.RECIPES.forEach(recipe -> {
 			if(recipe instanceof CompostRecipe){
-				ItemStack stack = ((CompostRecipe) recipe).getInput();
-				Collection<String> machines;
-				if(stack.getItemDamage() == OreDictionary.WILDCARD_VALUE){
-					machines = betweenlandsItemTooltips.computeIfAbsent(stack.getItem(), a -> new ArrayList<>());
-				} else {
-					Pair<Item, Integer> key = new ImmutablePair<>(stack.getItem(), stack.getItemDamage());
-					machines = betweenlandsItemStackTooltips.computeIfAbsent(key, a -> new ArrayList<>());
-				}
-				machines.add(I18n.format("tooltip.bl.recipes.compost_bin"));
+				ItemStack ingredient = ((CompostRecipe) recipe).getInput();
+				betweenlandsTooltips.put(ingredient, compostBinString);
 			}
 		});
+		PestleAndMortarRecipe.getRecipes().forEach(recipe -> {
+			betweenlandsTooltips.put(recipe.getInputs(), pestleAndMortalString);
+		});
 
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SPIRIT_FRUIT, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.offering_table"));
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.MOSS_FILTER, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.water_filter"));
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SILK_FILTER, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.water_filter"));
-		betweenlandsItemTooltips.computeIfAbsent(ItemRegistry.SILK_BUNDLE, a -> new ArrayList<>()).add(I18n.format("tooltip.bl.recipes.steeping_pot"));
-
+		betweenlandsTooltips.put(ItemRegistry.SPIRIT_FRUIT, offeringTableString);
+		betweenlandsTooltips.put(ItemRegistry.MOSS_FILTER, waterFilterString);
+		betweenlandsTooltips.put(ItemRegistry.SILK_FILTER, waterFilterString);
+		betweenlandsTooltips.put(ItemRegistry.SILK_BUNDLE, steepingPotString);
 	}
 
 	@Override
