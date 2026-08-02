@@ -7,7 +7,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
+import roidrole.tfutils.config.TFUtilsConfig;
 import roidrole.tfutils.proxy.CommonProxy;
+import thaumcraft.api.aspects.Aspect;
 
 
 @Mod(
@@ -37,8 +39,17 @@ public class TFUtils {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {PROXY.init();}
+    public void init(FMLInitializationEvent event) {
+        PROXY.init();
+
+        TFUtilsConfig.cloneAspects = new Aspect[TFUtilsConfig.cloneAspectsStrings.length];
+        for (int i = 0; i < TFUtilsConfig.cloneAspectsStrings.length; i++) {
+            TFUtilsConfig.cloneAspects[i] = Aspect.getAspect(TFUtilsConfig.cloneAspectsStrings[i]);
+        }
+    }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {PROXY.postInit();}
+    public void postInit(FMLPostInitializationEvent event) {
+        PROXY.postInit();
+    }
 }

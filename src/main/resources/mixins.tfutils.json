@@ -33,6 +33,7 @@
 		"railcraft.ItemTieMixin",
 		"railcraft.LootPluginMixin",
 		"railcraft.RailCraftMixin",
+		"sync.MixinTileEntityShellConstructor",
 		"tfc.BlockCharcoalForgeMixin",
 		"tfc.CastingRecipeWrapperMixin",
 		"tfc.ChunkGenTFCMixin",
