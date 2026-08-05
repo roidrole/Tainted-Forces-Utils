@@ -2,6 +2,7 @@ package roidrole.tfutils.config;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import roidrole.tfutils.Tags;
@@ -36,6 +37,7 @@ public class TFUtilsConfig {
 		if(!Objects.equals(event.getModID(), Tags.MOD_ID)){
 			return;
 		}
+		ConfigManager.sync(Tags.MOD_ID, Config.Type.INSTANCE);
 		if(cloneAspectsStrings.length == 0){
 			cloneAspectsStrings = new String[]{"humanus"};
 		}
