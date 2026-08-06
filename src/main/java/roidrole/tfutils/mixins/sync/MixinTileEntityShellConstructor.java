@@ -16,6 +16,9 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaTransport;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 @Mixin(TileEntityShellConstructor.class)
 public abstract class MixinTileEntityShellConstructor extends TileEntityDualVertical<TileEntityShellConstructor> implements IEssentiaTransport {
 
@@ -28,7 +31,7 @@ public abstract class MixinTileEntityShellConstructor extends TileEntityDualVert
 	 * @reason no more power input
 	 */
 	@Overwrite(remap = false)
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing){
+	public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing){
 		return false;
 	}
 
@@ -38,7 +41,11 @@ public abstract class MixinTileEntityShellConstructor extends TileEntityDualVert
 		remap = false
 	)
 	private void updateEssentia(CallbackInfo ci){
-		if(!tfutils_getLogicalConstructor().canReceive()){
+		TileEntityShellConstructor logicalConstructor = tfutils_getLogicalConstructor();
+		if(logicalConstructor == null){
+			return;
+		}
+		if(!logicalConstructor.canReceive()){
 			return;
 		}
 		TileEntity te;
@@ -53,7 +60,7 @@ public abstract class MixinTileEntityShellConstructor extends TileEntityDualVert
 			if (ic.getEssentiaAmount(dir.getOpposite()) > 0 && ic.getSuctionAmount(dir.getOpposite()) < tfutils_suction_amount && tfutils_suction_amount >= ic.getMinimumSuction()) {
 				int ess = ic.takeEssentia(tfutils_getAspect(), 1, dir.getOpposite());
 				if (ess > 0) {
-					tfutils_getLogicalConstructor().receiveEnergy(1, false);
+					logicalConstructor.receiveEnergy(1, false);
 					return;
 				}
 			}
@@ -95,7 +102,11 @@ public abstract class MixinTileEntityShellConstructor extends TileEntityDualVert
 
 	@Override
 	public int getSuctionAmount(EnumFacing facing) {
-		if(canInputFrom(facing) && tfutils_getLogicalConstructor().canReceive()){
+		if(!canInputFrom(facing)){
+			return 0;
+		}
+		TileEntityShellConstructor logicalConstructor = tfutils_getLogicalConstructor();
+		if(logicalConstructor != null && logicalConstructor.canReceive()){
 			return tfutils_suction_amount;
 		}
 		return 0;
@@ -115,7 +126,11 @@ public abstract class MixinTileEntityShellConstructor extends TileEntityDualVert
 			return 0;
 		}
 
-		return amount - tfutils_getLogicalConstructor().receiveEnergy(1, false);
+		TileEntityShellConstructor logicalConstructor = tfutils_getLogicalConstructor();
+		if(logicalConstructor == null){
+			return 0;
+		}
+		return amount - logicalConstructor.receiveEnergy(1, false);
 	}
 
 	@Override
@@ -135,11 +150,15 @@ public abstract class MixinTileEntityShellConstructor extends TileEntityDualVert
 
 	@Unique
 	public Aspect tfutils_getAspect(){
-		return TFUtilsConfig.cloneAspects[(int)tfutils_getLogicalConstructor().constructionProgress % TFUtilsConfig.cloneAspects.length];
+		TileEntityShellConstructor logicalConstructor = tfutils_getLogicalConstructor();
+		if(logicalConstructor == null){
+			return null;
+		}
+		return TFUtilsConfig.cloneAspects[(int) (logicalConstructor.constructionProgress % TFUtilsConfig.cloneAspects.length)];
 	}
 
 	@Unique
-	public TileEntityShellConstructor tfutils_getLogicalConstructor(){
+	public @Nullable TileEntityShellConstructor tfutils_getLogicalConstructor(){
 		if(!this.top){
 			return (TileEntityShellConstructor)(Object) this;
 		} else {
