@@ -28,6 +28,7 @@
 		"ic2.SubModuleJEIMixin",
 		"immersivecables.RecipeRegistryMixin",
 		"immersiveengineering.SqueezerRecipeCategoryMixin",
+		"magneticraft.InventoriesMixin",
 		"mystgears.TileEntityMechanicalCrafterMixin",
 		"railcraft.BlockStrengthGlassMixin",
 		"railcraft.ItemTieMixin",
