@@ -1,0 +1,7 @@
+{
+	"parent": "deeperdepths:block/copper_lantern/lantern",
+	"textures": {
+		"all": "tfutils:blocks/lantern",
+		"particle": "tfutils:blocks/lantern"
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"hanging=false": {"model": "tfutils:lantern"},
+		"hanging=true": {"model": "tfutils:lantern_hanging"}
+	}
+}

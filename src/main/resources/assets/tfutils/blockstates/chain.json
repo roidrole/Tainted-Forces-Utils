@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"axis=y":  { "model": "tfutils:chain" },
+		"axis=z":   { "model": "tfutils:chain", "x": 90 },
+		"axis=x":   { "model": "tfutils:chain", "x": 90, "y": 90 },
+		"axis=none": { "model": "tfutils:chain" }
+	}
+}

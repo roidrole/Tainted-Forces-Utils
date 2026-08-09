@@ -1,0 +1,7 @@
+{
+	"parent": "deeperdepths:block/copper_chain/chain",
+	"textures": {
+		"all": "tfutils:blocks/chain",
+		"particle": "tfutils:blocks/chain"
+	}
+}

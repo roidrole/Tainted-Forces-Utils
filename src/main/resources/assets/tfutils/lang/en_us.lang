@@ -52,3 +52,6 @@ tooltip.nethersteel.skull=Skull
 tooltip.nethersteel.eye=Eye
 tooltip.nethersteel.watching_eye=Watching Eye
 tooltip.nethersteel.hellish=Hellish
+
+tile.tfutils.chain.name=Chain
+tile.tfutils.lantern.name=Lantern

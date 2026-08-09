@@ -91,8 +91,6 @@ dependencies {
 
     implementation('curse.maven:railcraft-51195:3853491')
 
-    //implementation('curse.maven:lockdown-244019:2477270')
-
     implementation('curse.maven:yungs-better-mineshafts-forge-389665:3247154')
 
     implementation('curse.maven:tetra-289712:2815271')
@@ -127,6 +125,9 @@ dependencies {
     runtimeOnly('curse.maven:zenutil-401178:6794785')
 
     implementation('curse.maven:sync-229090:2682824')
+
+    implementation('curse.maven:deeper-depths-1101129:7512773')
+    implementation('curse.maven:atlas-lib-463826:8206890')
     // Example - Dependency descriptor:
     // 'com.google.code.gson:gson:2.8.6' << group: com.google.code.gson, name:gson, version:2.8.6
     // 'group:name:version:classifier' where classifier is optional

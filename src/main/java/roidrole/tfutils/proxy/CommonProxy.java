@@ -67,6 +67,9 @@ public class CommonProxy {
         ForgeRegistries.BLOCKS.register(NetherMetal.BLOCK);
         ForgeRegistries.ITEMS.register(NetherMetal.ITEM);
 
+		registerBlock(Chain.BLOCK, Chain.ITEM);
+		registerBlock(Lantern.BLOCK, Lantern.ITEM);
+
         registerBlock(NetherSteel.BLOCK, NetherSteel.ITEM);
         for (String variant : new String[]{"symbol", "bevel", "polished", "sentient", "pentacle", "pentagram", "skull", "eye", "watching_eye", "hellish", "watching_hellish"}){
             NetherSteel toRegister = new NetherSteel(variant);
