@@ -42,6 +42,7 @@
 		"tfc.ITECrucibleAccessor",
 		"tfc.ItemBlockMetalLampMixin",
 		"tfc.ItemBloomMixin",
+		"tfc.ItemMetalToolMixin",
 		"tfc.ItemTypeMixin",
 		"tfc.TEBlastFurnaceMixin",
 		"tfc.TECrucibleMixin",
