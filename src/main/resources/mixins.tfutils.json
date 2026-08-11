@@ -47,6 +47,7 @@
 		"tfc.TEBlastFurnaceMixin",
 		"tfc.TECrucibleMixin",
 		"tfc.TEFirePitMixin",
+		"tfc.TESluiceMixin",
 		"tfc.UnmoldRecipeMixin",
 		"tfc.UnmoldRecipeWrapperMixin",
 		"tfctech.ItemBlowpipeMixin",
