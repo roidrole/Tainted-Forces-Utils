@@ -1,7 +1,8 @@
 # Script to send the build jar to the Tainted Forces instance
 # Assumes you manually set $PRISM_INSTANCE_DIRECTORY in ~/.bashsrc or equivalent
 # Version should be the one in gradle.properties
-read -p "Version Number : " version
+
+version=`(grep -v "\#" | grep -w mod_version | cut -d" " -f3) < gradle.properties`
 rm "$PRISM_INSTANCE_DIRECTORY/Tainted Forces/minecraft/mods/"*tfutils*
-mv -f ./build/libs/!tfutils-${version}.jar "$PRISM_INSTANCE_DIRECTORY/Tainted Forces/minecraft/mods/"
+mv -f "./build/libs/!tfutils-$version.jar" "$PRISM_INSTANCE_DIRECTORY/Tainted Forces/minecraft/mods/"
 echo "Sent to Prism"
