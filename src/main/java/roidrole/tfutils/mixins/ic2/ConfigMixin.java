@@ -33,4 +33,15 @@ public abstract class ConfigMixin {
 	private static void sameConfigFile3(BufferedWriter instance, String s){
 		//NO-OP
 	}
+
+	@Redirect(
+		method = "<clinit>",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/lang/System;getProperty(Ljava/lang/String;)Ljava/lang/String;"
+		)
+	)
+	private static String standardizeLineSeparators(String s){
+		return "\n";
+	}
 }
