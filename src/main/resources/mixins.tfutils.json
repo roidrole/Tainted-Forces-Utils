@@ -65,6 +65,7 @@
 	],
 	"server": [],
 	"client": [
-		"dsurround.FootstepsRegistryMixin"
+		"dsurround.FootstepsRegistryMixin",
+		"immersiveintelligence.IIKeybindMixin"
 	]
 }
