@@ -40,8 +40,8 @@ dependencies {
     implementation('curse.maven:magneticraft-224808:3791484')
     implementation('curse.maven:mysticalmechanics-300742:3006392')
     implementation('curse.maven:mystical-gears-317915:3206298')
-    //implementation('io.github.chaosunity.forgelin:Forgelin-Continuous:2.2.21.0')
-    //implementation('curse.maven:modelloader-277663:2744735')
+    implementation('io.github.chaosunity.forgelin:Forgelin-Continuous:2.2.21.0')
+    implementation('curse.maven:modelloader-277663:2744735')
     implementation('curse.maven:angry-pixel-the-betweenlands-mod-243363:4479688')
     implementation('curse.maven:reid-629017:6761278')
     implementation('curse.maven:botania-ceu-1179448:6900692')
@@ -128,6 +128,8 @@ dependencies {
 
     implementation('curse.maven:deeper-depths-1101129:7512773')
     implementation('curse.maven:atlas-lib-463826:8206890')
+
+    implementation('curse.maven:heterorustichromia-363734:2980748')
     // Example - Dependency descriptor:
     // 'com.google.code.gson:gson:2.8.6' << group: com.google.code.gson, name:gson, version:2.8.6
     // 'group:name:version:classifier' where classifier is optional

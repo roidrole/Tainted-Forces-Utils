@@ -100,6 +100,10 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerEventHandlers(){
 		super.registerEventHandlers();
+		//TFUtils
+		MinecraftForge.EVENT_BUS.register(ItemTooltipHandler.class);
+
+		//Betweenlands
 		//Commented out handlers are handlers from the mod that were replaced/included
 		MinecraftForge.EVENT_BUS.register(ShaderHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(FogHandler.class);
@@ -138,9 +142,6 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(EventHeavyRain.class);
 		MinecraftForge.EVENT_BUS.register(new GuiFishStaminaBar());
 		MinecraftForge.EVENT_BUS.register(ItemBLFishingRod.class);
-
-		//TFUtils
-		MinecraftForge.EVENT_BUS.register(ItemTooltipHandler.class);
 		MinecraftForge.EVENT_BUS.register(CameraPositionHandler.INSTANCE);
 	}
 

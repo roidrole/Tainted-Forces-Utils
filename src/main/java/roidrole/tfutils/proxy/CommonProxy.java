@@ -13,6 +13,7 @@ import roidrole.tfutils.TFUtils;
 import roidrole.tfutils.Tags;
 import roidrole.tfutils.blocks.*;
 import roidrole.tfutils.config.BuildingGadgetIgnoredNBTKeys;
+import roidrole.tfutils.handlers.WorldUnloadHandler;
 import thebetweenlands.common.BLDataFixers;
 import thebetweenlands.common.block.farming.BlockGenericDugSoil;
 import thebetweenlands.common.block.plant.BlockWeedwoodBush;
@@ -123,6 +124,8 @@ public class CommonProxy {
 	}
 
 	public void registerEventHandlers(){
+		MinecraftForge.EVENT_BUS.register(WorldUnloadHandler.class);
+
 		//Betweenlands
 		WorldStorageImpl.register();
 
