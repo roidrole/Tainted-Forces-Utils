@@ -61,7 +61,9 @@
 		"thermal.CoverHelperMixin",
 		"thermal.ItemCoverMixin",
 		"thermal.JEIPluginTDMixin",
-		"thermal.ProxyClientMixin"
+		"thermal.ProxyClientMixin",
+		"witchery.BlockSilverVatMixin",
+		"witchery.JsonReloadListenerMixin"
 	],
 	"server": [],
 	"client": [

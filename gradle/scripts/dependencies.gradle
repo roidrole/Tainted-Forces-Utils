@@ -57,7 +57,7 @@ dependencies {
     implementation('curse.maven:immersive-engineering-231951:2974106')
     implementation('curse.maven:immersive-intelligence-344344:8664478')
 
-    implementation('curse.maven:terrafirmacraft-302973:3645502')
+    implementation(rfg.deobf('curse.maven:terrafirmacraft-302973:3645502'))
     implementation('curse.maven:tfc-metallum-339156:3735220')
     implementation('curse.maven:tfctech-unofficial-340660:3209033')
     implementation('curse.maven:metallurgy-4-reforged-300890:5279337')
@@ -130,6 +130,9 @@ dependencies {
     implementation('curse.maven:atlas-lib-463826:8206890')
 
     implementation('curse.maven:heterorustichromia-363734:2980748')
+
+    implementation('curse.maven:witchery-companion-1020447:8237896')
+    implementation(rfg.deobf(files('libs/WitcheryResurrected-1.12.2-0.5.2.4-forge-all.jar')))
     // Example - Dependency descriptor:
     // 'com.google.code.gson:gson:2.8.6' << group: com.google.code.gson, name:gson, version:2.8.6
     // 'group:name:version:classifier' where classifier is optional
