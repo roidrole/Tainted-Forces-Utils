@@ -13,7 +13,6 @@
 		"botania.ModFluffBlocksMixin",
 		"botania.SpecialFloatingFlowerRecipeMixin",
 		"botania.SpecialFloatingFlowerWrapperMixin",
-		"botania.SubTileGeneratingMixin",
 		"botania.SubTileMarimorphosisMixin",
 		"buildinggadgets.GadgetCopyPasteMixin",
 		"cnpcs.ServerCloneControllerMixin",

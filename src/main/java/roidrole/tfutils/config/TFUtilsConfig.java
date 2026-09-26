@@ -16,9 +16,6 @@ import java.util.Objects;
 )
 public class TFUtilsConfig {
 
-	@Config.Comment("How much mana the hydrogeanas will generate every 3 ticks (2 if raining)")
-	public static int hydrogenanasPowerMultiplier = 3;
-
 	@Config.Ignore
 	public static Aspect[] cloneAspects;
 

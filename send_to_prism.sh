@@ -4,5 +4,5 @@
 
 version=`(grep -v "\#" | grep -w mod_version | cut -d" " -f3) < gradle.properties`
 rm "$PRISM_INSTANCE_DIRECTORY/Tainted Forces/minecraft/mods/"*tfutils*
-mv -f "./build/libs/!tfutils-$version.jar" "$PRISM_INSTANCE_DIRECTORY/Tainted Forces/minecraft/mods/"
+mv -f "./build/libs/tfutils-$version.jar" "$PRISM_INSTANCE_DIRECTORY/Tainted Forces/minecraft/mods/"
 echo "Sent to Prism"
