@@ -64,7 +64,7 @@ public abstract class ChunkGenTFCMixin {
 
 	@Inject(
 		method = "populate",
-		at = @At("HEAD")
+		at = @At("TAIL")
 	)
 	public void generateStructures(int chunkX, int chunkZ, CallbackInfo ci){
 		try {
