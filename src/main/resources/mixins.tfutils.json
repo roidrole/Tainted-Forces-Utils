@@ -7,6 +7,8 @@
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"ae2.ItemFacadeMixin",
+		"bettermineshafts.AccModConfig",
+		"bettermineshafts.ModConfigMixin",
 		"botania.BlockBuriedPetalsMixin",
 		"botania.BlockModFlowerMixin",
 		"botania.BlockShinyFlowerMixin",

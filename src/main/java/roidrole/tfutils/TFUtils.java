@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 import roidrole.tfutils.config.TFUtilsConfig;
+import roidrole.tfutils.mixins.bettermineshafts.AccModConfig;
 import roidrole.tfutils.proxy.CommonProxy;
 import thaumcraft.api.aspects.Aspect;
 
@@ -46,6 +47,8 @@ public class TFUtils {
         for (int i = 0; i < TFUtilsConfig.cloneAspectsStrings.length; i++) {
             TFUtilsConfig.cloneAspects[i] = Aspect.getAspect(TFUtilsConfig.cloneAspectsStrings[i]);
         }
+        //For some reason, YUNG's Better Mineshafts reads the JSON in preInit
+        AccModConfig.invokeLoadVariantsJSON();
     }
 
     @Mod.EventHandler

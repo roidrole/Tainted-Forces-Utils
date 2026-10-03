@@ -15,13 +15,11 @@ import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenStructure;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import roidrole.tfutils.TFUtils;
 
 import java.util.Random;
 
@@ -59,22 +57,21 @@ public abstract class ChunkGenTFCMixin {
 	private void generateMineshaft(int chunkX, int chunkZ, CallbackInfoReturnable<Chunk> cir, @Local(name = "chunkPrimerOut") CustomChunkPrimer chunkPrimerOut){
 		try {
 			this.tfUtils_mineshaftGen.generate(this.world, chunkX, chunkZ, chunkPrimerOut);
-		} catch (RuntimeException ignored) { }
+		} catch (RuntimeException error) {
+			TFUtils.LOGGER.error(error);
+		}
 	}
 
 	@Inject(
 		method = "populate",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraftforge/fml/common/IWorldGenerator;generate(Ljava/util/Random;IILnet/minecraft/world/World;Lnet/minecraft/world/gen/IChunkGenerator;Lnet/minecraft/world/chunk/IChunkProvider;)V",
-			ordinal = 0
-		),
-		remap = false
+		at = @At("HEAD")
 	)
-	private void populateMineshaft(int chunkX, int chunkZ, CallbackInfo ci) {
+	public void generateStructures(int chunkX, int chunkZ, CallbackInfo ci){
 		try {
 			this.tfUtils_mineshaftGen.generateStructure(this.world, this.rand, new ChunkPos(chunkX, chunkZ));
-		} catch (RuntimeException ignored) { }
+		} catch (RuntimeException error) {
+			TFUtils.LOGGER.error(error);
+		}
 	}
 
 	@WrapOperation(
